@@ -7,7 +7,7 @@ import MatchForm from '../components/MatchForm';
 import MatchList from '../components/MatchList';
 import StatsSummary from '../components/StatsSummary';
 import AdvancedStats from '../components/AdvancedStats';
-import { Sword, LayoutDashboard, RefreshCcw } from 'lucide-react';
+import { Sword, LayoutDashboard, RefreshCcw, Zap } from 'lucide-react';
 
 export default function Home() {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -29,7 +29,6 @@ export default function Home() {
 
   useEffect(() => {
     loadData();
-    // Refresh every 30 seconds for real-time feel
     const interval = setInterval(loadData, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -39,61 +38,83 @@ export default function Home() {
   };
 
   if (!isLoaded) return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'var(--accent-primary)' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'var(--dbz-orange)' }}>
       <RefreshCcw className="animate-spin" size={48} />
     </div>
   );
 
   return (
     <main className="container">
-      {/* Header */}
+      {/* Header DBZ Style */}
       <header style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '3rem',
-        padding: '1.5rem 0'
+        padding: '2rem 0',
+        borderBottom: '2px solid var(--dbz-orange)',
+        position: 'relative'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
           <div style={{
-            background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
-            padding: '0.75rem',
-            borderRadius: '16px',
-            boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)'
+            background: 'linear-gradient(135deg, var(--dbz-orange), var(--dbz-red))',
+            padding: '1rem',
+            borderRadius: '20px',
+            boxShadow: '0 0 25px rgba(248, 90, 33, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}>
-            <Sword size={32} color="white" />
+            <Zap size={36} color="white" fill="white" />
           </div>
           <div>
-            <h1 style={{ fontSize: '1.75rem', lineHeight: 1 }}>DuoNexus</h1>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>MOBA Stats Tracer (DB Mode)</p>
+            <h1 style={{
+              fontSize: '2.5rem',
+              lineHeight: 1,
+              fontWeight: 900,
+              letterSpacing: '-0.02em',
+              textTransform: 'uppercase',
+              color: 'var(--dbz-orange)',
+              textShadow: '2px 2px 0px var(--dbz-blue)'
+            }}>
+              Z-STATS
+            </h1>
+            <p style={{ color: 'var(--dbz-yellow)', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              Duo Performance Tracker
+            </p>
           </div>
         </div>
 
-        <nav style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
           <button
             onClick={loadData}
             disabled={isRefreshing}
             className="btn"
-            style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}
+            style={{
+              padding: '0.75rem',
+              background: 'var(--dbz-blue)',
+              borderRadius: '16px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              color: 'white'
+            }}
             title="Rafraîchir les données"
           >
             <RefreshCcw size={20} className={isRefreshing ? 'animate-spin' : ''} />
           </button>
-          <button
-            onClick={() => {
-              const data = JSON.stringify(matches, null, 2);
-              const blob = new Blob([data], { type: 'application/json' });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = `moba-stats-${new Date().toISOString().split('T')[0]}.json`;
-              a.click();
-            }}
-            className="btn"
-            style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--card-border)' }}
-          >
-            Exporter JSON
-          </button>
+
+          <a href="#" style={{
+            color: 'var(--dbz-yellow)',
+            fontWeight: 800,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            textDecoration: 'none',
+            fontSize: '1rem',
+            textTransform: 'uppercase'
+          }}>
+            <LayoutDashboard size={20} />
+            Kais Pad
+          </a>
         </nav>
       </header>
 
@@ -113,17 +134,36 @@ export default function Home() {
         {/* Right Column: List */}
         <section>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h2 style={{ fontSize: '1.25rem' }}>Parties Récentes</h2>
-            <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{matches.length} matches</span>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--dbz-orange)' }}>
+              Sagas Récentes
+            </h2>
+            <span style={{
+              background: 'var(--dbz-blue)',
+              padding: '0.4rem 0.8rem',
+              borderRadius: '12px',
+              fontSize: '0.8rem',
+              fontWeight: 700
+            }}>
+              {matches.length} COMBATS
+            </span>
           </div>
           <MatchList matches={matches} onMatchDeleted={handleMatchUpdate} />
         </section>
       </div>
 
       {/* Footer */}
-      <footer style={{ marginTop: '5rem', padding: '2rem 0', textAlign: 'center', borderTop: '1px solid var(--card-border)' }}>
+      <footer style={{
+        marginTop: '6rem',
+        padding: '3rem 0',
+        textAlign: 'center',
+        borderTop: '2px solid var(--card-border)',
+        background: 'linear-gradient(to bottom, transparent, rgba(248, 90, 33, 0.05))'
+      }}>
+        <p style={{ color: 'var(--dbz-orange)', fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+          Xhelo x j9
+        </p>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
-          Plateforme de stats MOBA pour Xhelo & j9. Partagé par Vercel KV.
+          Propulsé par le Ki de Vercel & Upstash. 2026.
         </p>
       </footer>
     </main>
