@@ -98,19 +98,18 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     };
 
     const StatList = ({ data, type }: { data: any[], type: 'wr' | 'kda' | 'duo' | 'role' }) => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             {data.map((item, i) => (
                 <div
                     key={item.name || item.key}
-                    className={`${i === 0 && type !== 'role' ? 'rank-aura-gold' : ''}`}
                     style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        padding: '0.75rem 1rem',
-                        background: i === 0 && type !== 'role' ? 'rgba(255, 215, 0, 0.03)' : 'rgba(255,255,255,0.02)',
-                        borderRadius: '12px',
-                        border: i === 0 && type !== 'role' ? '1px solid rgba(255, 215, 0, 0.2)' : '1px solid rgba(255,255,255,0.05)',
+                        padding: '0.7rem 1rem',
+                        background: i === 0 && type !== 'role' ? 'rgba(194, 156, 66, 0.05)' : 'rgba(255,255,255,0.01)',
+                        borderRadius: '10px',
+                        border: i === 0 && type !== 'role' ? '1px solid var(--dbz-gold)' : '1px solid rgba(255,255,255,0.05)',
                         transition: 'all 0.2s ease'
                     }}
                     title={item.details ? `Total: ${item.details.k}K / ${item.details.d}D / ${item.details.a}A` : undefined}
@@ -118,8 +117,8 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         {type !== 'role' && (
                             <span style={{
-                                color: i === 0 ? 'var(--dbz-yellow)' : 'var(--text-secondary)',
-                                fontWeight: 900,
+                                color: i === 0 ? 'var(--dbz-gold)' : 'var(--text-secondary)',
+                                fontWeight: 800,
                                 fontSize: '0.8rem',
                                 fontFamily: 'Orbitron, sans-serif'
                             }}>
@@ -129,11 +128,11 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                         {type === 'role' && <span style={{ opacity: 0.8 }}>{getRoleIcon(item.name)}</span>}
                         <span style={{
                             fontWeight: 700,
-                            fontSize: '0.9rem',
+                            fontSize: '0.85rem',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
-                            maxWidth: '150px'
+                            maxWidth: '160px'
                         }}>
                             {item.name || item.key}
                         </span>
@@ -142,26 +141,26 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                         {type === 'kda' ? (
                             <>
                                 <div style={{
-                                    color: i === 0 ? 'var(--dbz-yellow-glow)' : 'var(--dbz-blue-glow)',
+                                    color: i === 0 ? 'var(--dbz-gold)' : 'var(--foreground)',
                                     fontFamily: 'Orbitron, sans-serif',
-                                    fontWeight: 900,
-                                    fontSize: '0.95rem'
+                                    fontWeight: 800,
+                                    fontSize: '0.9rem'
                                 }}>
                                     {item.kda.toFixed(2)}
                                 </div>
-                                <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: 700 }}>Ratio</div>
+                                <div style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: 700 }}>Ratio</div>
                             </>
                         ) : (
                             <>
                                 <div style={{
-                                    color: i === 0 ? 'var(--dbz-yellow-glow)' : 'var(--win-color)',
+                                    color: i === 0 ? 'var(--dbz-gold)' : 'var(--win-color)',
                                     fontFamily: 'Orbitron, sans-serif',
-                                    fontWeight: 900,
-                                    fontSize: '0.95rem'
+                                    fontWeight: 800,
+                                    fontSize: '0.9rem'
                                 }}>
                                     {item.winrate.toFixed(0)}%
                                 </div>
-                                <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: 700 }}>{item.total} combat{item.total > 1 ? 's' : ''}</div>
+                                <div style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: 700 }}>{item.total} combat{item.total > 1 ? 's' : ''}</div>
                             </>
                         )}
                     </div>
