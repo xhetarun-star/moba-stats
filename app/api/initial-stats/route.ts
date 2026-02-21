@@ -4,37 +4,43 @@ import fs from 'fs';
 import path from 'path';
 import { Match } from '@/lib/types';
 
-const MATCHES_KEY = 'moba_matches';
+const MATCHES_KEY = 'moba_matches_v1'; // On change de clé pour être sûr de repartir sur du propre
+
+// On force Next.js à ne pas mettre en cache cette page
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function GET() {
     try {
-        // 1. Try to get matches from Vercel KV (shared database)
+        console.log('Fetching matches from KV...');
         let matches = await kv.get<Match[]>(MATCHES_KEY);
 
-        // 2. If it's the very first time (database empty), load from the JSON file
         if (!matches || matches.length === 0) {
+            console.log('KV is empty, looking for initial JSON...');
             const filePath = path.join(process.cwd(), 'imported_stats.json');
             if (fs.existsSync(filePath)) {
                 const fileData = fs.readFileSync(filePath, 'utf8');
                 matches = JSON.parse(fileData);
-                // Save to KV so it's there for next time
+                console.log(`Importing ${matches?.length} matches to KV`);
                 await kv.set(MATCHES_KEY, matches);
             } else {
                 matches = [];
             }
         }
 
-        return NextResponse.json(matches);
-    } catch (error) {
-        // Fallback for local development if KV is not yet configured
-        console.error('KV Error or missing config:', error);
-        try {
-            const filePath = path.join(process.cwd(), 'imported_stats.json');
-            if (fs.existsSync(filePath)) {
-                const data = fs.readFileSync(filePath, 'utf8');
-                return NextResponse.json(JSON.parse(data));
+        return NextResponse.json(matches, {
+            headers: {
+                'Cache-Control': 'no-store, max-age=0, must-revalidate',
             }
-        } catch (e) { }
+        });
+    } catch (error: any) {
+        console.error('KV Error:', error.message);
+        // Fallback local
+        const filePath = path.join(process.cwd(), 'imported_stats.json');
+        if (fs.existsSync(filePath)) {
+            const data = fs.readFileSync(filePath, 'utf8');
+            return NextResponse.json(JSON.parse(data));
+        }
         return NextResponse.json([]);
     }
 }
@@ -44,11 +50,12 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { matches } = body;
 
-        // Save the whole array to KV
+        console.log(`Saving ${matches.length} matches to KV...`);
         await kv.set(MATCHES_KEY, matches);
 
         return NextResponse.json({ success: true });
-    } catch (error) {
-        return NextResponse.json({ error: 'Failed to save matches' }, { status: 500 });
+    } catch (error: any) {
+        console.error('Save Error:', error.message);
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
