@@ -39,7 +39,8 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
             name,
             winrate: (s.wins / s.total) * 100,
             total: s.total,
-            kda: (s.k + s.a) / Math.max(1, s.d)
+            kda: (s.k + s.a) / Math.max(1, s.d),
+            details: { k: s.k, d: s.d, a: s.a }
         }));
     };
 
@@ -59,7 +60,8 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
             name,
             winrate: (s.wins / s.total) * 100,
             total: s.total,
-            kda: (s.k + s.a) / Math.max(1, s.d)
+            kda: (s.k + s.a) / Math.max(1, s.d),
+            details: { k: s.k, d: s.d, a: s.a }
         })).sort((a, b) => b.winrate - a.winrate);
     };
 
@@ -96,24 +98,70 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     };
 
     const StatList = ({ data, type }: { data: any[], type: 'wr' | 'kda' | 'duo' | 'role' }) => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             {data.map((item, i) => (
-                <div key={item.name || item.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0.8rem', background: 'rgba(255,255,255,0.02)', borderRadius: '10px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        {type !== 'role' && <span style={{ color: i === 0 ? '#ffd700' : 'var(--text-secondary)', fontWeight: 800, fontSize: '0.75rem' }}>#{i + 1}</span>}
-                        {type === 'role' && <span style={{ opacity: 0.7 }}>{getRoleIcon(item.name)}</span>}
-                        <span style={{ fontWeight: 600, fontSize: '0.85rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '140px' }}>{item.name || item.key}</span>
+                <div
+                    key={item.name || item.key}
+                    className={`${i === 0 && type !== 'role' ? 'rank-aura-gold' : ''}`}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '0.75rem 1rem',
+                        background: i === 0 && type !== 'role' ? 'rgba(255, 215, 0, 0.03)' : 'rgba(255,255,255,0.02)',
+                        borderRadius: '12px',
+                        border: i === 0 && type !== 'role' ? '1px solid rgba(255, 215, 0, 0.2)' : '1px solid rgba(255,255,255,0.05)',
+                        transition: 'all 0.2s ease'
+                    }}
+                    title={item.details ? `Total: ${item.details.k}K / ${item.details.d}D / ${item.details.a}A` : undefined}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        {type !== 'role' && (
+                            <span style={{
+                                color: i === 0 ? 'var(--dbz-yellow)' : 'var(--text-secondary)',
+                                fontWeight: 900,
+                                fontSize: '0.8rem',
+                                fontFamily: 'Orbitron, sans-serif'
+                            }}>
+                                #{i + 1}
+                            </span>
+                        )}
+                        {type === 'role' && <span style={{ opacity: 0.8 }}>{getRoleIcon(item.name)}</span>}
+                        <span style={{
+                            fontWeight: 700,
+                            fontSize: '0.9rem',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            maxWidth: '150px'
+                        }}>
+                            {item.name || item.key}
+                        </span>
                     </div>
                     <div style={{ textAlign: 'right' }}>
                         {type === 'kda' ? (
                             <>
-                                <div style={{ color: 'var(--accent-secondary)', fontWeight: 700, fontSize: '0.85rem' }}>{item.kda.toFixed(2)}</div>
-                                <div style={{ fontSize: '0.6rem', color: 'var(--text-secondary)' }}>KDA Ratio</div>
+                                <div style={{
+                                    color: i === 0 ? 'var(--dbz-yellow-glow)' : 'var(--dbz-blue-glow)',
+                                    fontFamily: 'Orbitron, sans-serif',
+                                    fontWeight: 900,
+                                    fontSize: '0.95rem'
+                                }}>
+                                    {item.kda.toFixed(2)}
+                                </div>
+                                <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: 700 }}>Ratio</div>
                             </>
                         ) : (
                             <>
-                                <div style={{ color: 'var(--win-color)', fontWeight: 700, fontSize: '0.85rem' }}>{item.winrate.toFixed(0)}%</div>
-                                <div style={{ fontSize: '0.6rem', color: 'var(--text-secondary)' }}>{item.total} m</div>
+                                <div style={{
+                                    color: i === 0 ? 'var(--dbz-yellow-glow)' : 'var(--win-color)',
+                                    fontFamily: 'Orbitron, sans-serif',
+                                    fontWeight: 900,
+                                    fontSize: '0.95rem'
+                                }}>
+                                    {item.winrate.toFixed(0)}%
+                                </div>
+                                <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: 700 }}>{item.total} combat{item.total > 1 ? 's' : ''}</div>
                             </>
                         )}
                     </div>
