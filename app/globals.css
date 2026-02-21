@@ -7,8 +7,9 @@
   --dbz-orange-dark: #c13e11;
   --dbz-blue: #00458e;
   --dbz-blue-glow: #0066d6;
-  --dbz-yellow: #ffd700;
-  --dbz-yellow-glow: #fff44f;
+  --dbz-yellow: #eab308;
+  /* Warmer Gold instead of bright yellow */
+  --dbz-yellow-glow: #fbbf24;
   --dbz-red: #ea1c0a;
 
   /* Modern UI Tokens */
@@ -97,22 +98,22 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: inset 0 0 10px rgba(234, 179, 8, 0.05);
+  border: 1px solid rgba(234, 179, 8, 0.15);
   border-radius: 10px;
   pointer-events: none;
-  animation: aura-pulse-gold 2s infinite alternate;
+  animation: aura-pulse-gold 3s infinite alternate;
 }
 
 @keyframes aura-pulse-gold {
   0% {
-    box-shadow: inset 0 0 5px rgba(255, 215, 0, 0.1);
-    opacity: 0.5;
+    box-shadow: inset 0 0 5px rgba(234, 179, 8, 0.05);
+    opacity: 0.3;
   }
 
   100% {
-    box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.25);
-    opacity: 1;
+    box-shadow: inset 0 0 12px rgba(234, 179, 8, 0.15);
+    opacity: 0.8;
   }
 }
 
@@ -253,7 +254,7 @@ h3,
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(234, 179, 8, 0.05) 0%, transparent 70%);
   pointer-events: none;
   animation: bg-ki 10s linear infinite;
 }
