@@ -1,0 +1,3213 @@
+[
+  {
+    "id": "final-import-0",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 2,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 10
+    }
+  },
+  {
+    "id": "final-import-1",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 0,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 5,
+      "deaths": 0,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-2",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-3",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-4",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-5",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "C-18",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 8,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-6",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-7",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 7,
+      "deaths": 0,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 1,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-8",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 9,
+      "deaths": 5,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 6,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-9",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 7,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 5,
+      "deaths": 4,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-10",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-11",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-12",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-13",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-14",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-15",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-16",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-17",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-18",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 5,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 5,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-19",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 2,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-20",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 11,
+      "deaths": 4,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 2,
+      "assists": 12
+    }
+  },
+  {
+    "id": "final-import-21",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-22",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-23",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-24",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-25",
+    "date": "14/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 4,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 5,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-26",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-27",
+    "date": "14/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 1,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 3,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-28",
+    "date": "15/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-29",
+    "date": "15/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cell",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 4,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-30",
+    "date": "15/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cell",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 1,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 0,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-31",
+    "date": "15/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 1,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 6,
+      "deaths": 0,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-32",
+    "date": "15/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-33",
+    "date": "15/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cell",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 2,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 3,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-34",
+    "date": "15/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Cell",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 2,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-35",
+    "date": "15/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 5,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-36",
+    "date": "16/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 10
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 0,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-37",
+    "date": "16/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Son Goku Super",
+      "role": "Attaquant",
+      "kills": 11,
+      "deaths": 4,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 5,
+      "assists": 13
+    }
+  },
+  {
+    "id": "final-import-38",
+    "date": "17/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cell",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 0,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-39",
+    "date": "17/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Cell",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 2,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-40",
+    "date": "17/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 3,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-41",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 6,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 5,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-42",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 9,
+      "deaths": 3,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 5,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-43",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-44",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Son Goku Super",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 3,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 2,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-45",
+    "date": "18/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 7,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 4,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-46",
+    "date": "18/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 9,
+      "assists": 9
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 3,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-47",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 9,
+      "deaths": 1,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 12,
+      "deaths": 0,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-48",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 1,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-49",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 0,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-50",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 6,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 2,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-51",
+    "date": "18/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 6,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 6,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-52",
+    "date": "18/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 5,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 2,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-53",
+    "date": "18/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 6,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 2,
+      "assists": 10
+    }
+  },
+  {
+    "id": "final-import-54",
+    "date": "18/01/2023",
+    "result": "Win",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 4,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-55",
+    "date": "18/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 0,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 6,
+      "deaths": 0,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-56",
+    "date": "19/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 2,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 3,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-57",
+    "date": "19/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 0,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 5,
+      "deaths": 0,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-58",
+    "date": "19/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 8,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-59",
+    "date": "19/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 2,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 2,
+      "deaths": 2,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-60",
+    "date": "19/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 0,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-61",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Son Goku Super",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 6,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 7,
+      "assists": 9
+    }
+  },
+  {
+    "id": "final-import-62",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Son Goku Super",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 2,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-63",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Son Goku Super",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 3,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 5,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-64",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 1,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-65",
+    "date": "21/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 4,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 2,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-66",
+    "date": "21/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Kale",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 6,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 1,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-67",
+    "date": "21/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 4,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 4,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-68",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 4,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 5,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-69",
+    "date": "21/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 5,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-70",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 1,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 9,
+      "deaths": 0,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-71",
+    "date": "21/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 4,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 5,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-72",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 4,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 2,
+      "deaths": 5,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-73",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 5,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 1,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-74",
+    "date": "21/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-75",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 5,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 1,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-76",
+    "date": "21/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 4,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 3,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-77",
+    "date": "26/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 1,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 0,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-78",
+    "date": "26/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 2,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 6,
+      "deaths": 0,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-79",
+    "date": "26/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 5,
+      "assists": 9
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 2,
+      "assists": 10
+    }
+  },
+  {
+    "id": "final-import-80",
+    "date": "26/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 17
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 13,
+      "deaths": 1,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-81",
+    "date": "26/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 4,
+      "assists": 9
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 7,
+      "deaths": 3,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-82",
+    "date": "28/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 4,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 7,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-83",
+    "date": "28/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 4,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-84",
+    "date": "28/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 9,
+      "deaths": 5,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 5,
+      "deaths": 3,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-85",
+    "date": "28/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 5,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-86",
+    "date": "28/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 2,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 13,
+      "deaths": 1,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-87",
+    "date": "28/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 1,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 2,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-88",
+    "date": "28/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-89",
+    "date": "28/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Son Goku Super",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 4,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 4,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-90",
+    "date": "28/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Son Goku Sayen",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 4,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 0,
+      "deaths": 6,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-91",
+    "date": "29/01/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "C-18",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 0,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 13
+    }
+  },
+  {
+    "id": "final-import-92",
+    "date": "29/01/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "C-18",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 6,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 2,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-93",
+    "date": "03/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 0,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 0,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-94",
+    "date": "03/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 4,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 2,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-95",
+    "date": "03/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 0,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-96",
+    "date": "03/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 4,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 4,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-97",
+    "date": "03/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 4,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 2,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-98",
+    "date": "03/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 5,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Trunks Jeune",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-99",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 10
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 13,
+      "deaths": 0,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-100",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 10
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 1,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-101",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 0,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 2,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-102",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 2,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 13,
+      "deaths": 1,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-103",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 0,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-104",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 2,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-105",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 5,
+      "deaths": 0,
+      "assists": 10
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 1,
+      "assists": 9
+    }
+  },
+  {
+    "id": "final-import-106",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 10
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 12,
+      "deaths": 3,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-107",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 0,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 0,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-108",
+    "date": "04/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 3,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 1,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-109",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 3,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-110",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 0,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-111",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 5,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-112",
+    "date": "04/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 3,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-113",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 5,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 2,
+      "deaths": 0,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-114",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 2,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 2,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-115",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 4,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-116",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 2,
+      "assists": 10
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 3,
+      "assists": 12
+    }
+  },
+  {
+    "id": "final-import-117",
+    "date": "04/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 6,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 2,
+      "deaths": 5,
+      "assists": 9
+    }
+  },
+  {
+    "id": "final-import-118",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 8,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 3,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-119",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 9,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-120",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 1,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 1,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-121",
+    "date": "04/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 4,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 1,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-122",
+    "date": "04/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 8,
+      "assists": 16
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 6,
+      "deaths": 7,
+      "assists": 8
+    }
+  },
+  {
+    "id": "final-import-123",
+    "date": "04/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 7,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 5,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-124",
+    "date": "08/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 7,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 5,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-125",
+    "date": "08/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 7,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 7,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-126",
+    "date": "08/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 0,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 4,
+      "deaths": 3,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-127",
+    "date": "08/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 6,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Ultimate Gohan",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 9,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-128",
+    "date": "08/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 7,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 3,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-129",
+    "date": "08/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Son Goku Super",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 5,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 2,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-130",
+    "date": "08/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 0,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-131",
+    "date": "08/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 9
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 7,
+      "deaths": 2,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-132",
+    "date": "08/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 2,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 6,
+      "deaths": 2,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-133",
+    "date": "10/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-134",
+    "date": "10/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 0,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 4,
+      "deaths": 0,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-135",
+    "date": "10/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 1,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 2,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-136",
+    "date": "10/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 1,
+      "deaths": 5,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-137",
+    "date": "10/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Piccolo",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 3,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-138",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 1,
+      "assists": 9
+    }
+  },
+  {
+    "id": "final-import-139",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 1,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 4,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-140",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 3,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-141",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 1,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Hit",
+      "role": "Soutien",
+      "kills": 2,
+      "deaths": 0,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-142",
+    "date": "11/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 0,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-143",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 6,
+      "deaths": 3,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 0,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-144",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-145",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 2,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 2,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-146",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 9,
+      "deaths": 1,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 12
+    }
+  },
+  {
+    "id": "final-import-147",
+    "date": "11/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 0,
+      "assists": 11
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 2,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-148",
+    "date": "12/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 5,
+      "deaths": 3,
+      "assists": 1
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-149",
+    "date": "12/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 6
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 1,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-150",
+    "date": "12/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 4,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 5,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-151",
+    "date": "12/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 2,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 4,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-152",
+    "date": "16/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 5,
+      "assists": 2
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 9,
+      "deaths": 4,
+      "assists": 7
+    }
+  },
+  {
+    "id": "final-import-153",
+    "date": "16/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 2,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 1,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-154",
+    "date": "16/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 0,
+      "deaths": 8,
+      "assists": 0
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 5,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-155",
+    "date": "18/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 3,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Kefla",
+      "role": "Attaquant",
+      "kills": 3,
+      "deaths": 2,
+      "assists": 2
+    }
+  },
+  {
+    "id": "final-import-156",
+    "date": "18/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 11
+    },
+    "mateStats": {
+      "hero": "Kefla",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 3,
+      "assists": 0
+    }
+  },
+  {
+    "id": "final-import-157",
+    "date": "18/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 0,
+      "assists": 9
+    },
+    "mateStats": {
+      "hero": "Kefla",
+      "role": "Attaquant",
+      "kills": 12,
+      "deaths": 0,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-158",
+    "date": "18/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Kefla",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 2,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-159",
+    "date": "19/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 7,
+      "deaths": 0,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Gotenks",
+      "role": "Soutien",
+      "kills": 6,
+      "deaths": 3,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-160",
+    "date": "19/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 6,
+      "deaths": 0,
+      "assists": 10
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 2,
+      "assists": 10
+    }
+  },
+  {
+    "id": "final-import-161",
+    "date": "19/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 0,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 0,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-162",
+    "date": "19/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 2,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 10,
+      "deaths": 3,
+      "assists": 1
+    }
+  },
+  {
+    "id": "final-import-163",
+    "date": "19/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 3,
+      "assists": 8
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 7,
+      "deaths": 3,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-164",
+    "date": "19/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Bardock",
+      "role": "Défenseur",
+      "kills": 3,
+      "deaths": 1,
+      "assists": 7
+    },
+    "mateStats": {
+      "hero": "Vegito",
+      "role": "Attaquant",
+      "kills": 8,
+      "deaths": 1,
+      "assists": 3
+    }
+  },
+  {
+    "id": "final-import-165",
+    "date": "19/02/2026",
+    "result": "Win",
+    "userStats": {
+      "hero": "Broly",
+      "role": "Attaquant",
+      "kills": 4,
+      "deaths": 4,
+      "assists": 3
+    },
+    "mateStats": {
+      "hero": "Zamasu",
+      "role": "Défenseur",
+      "kills": 2,
+      "deaths": 1,
+      "assists": 4
+    }
+  },
+  {
+    "id": "final-import-166",
+    "date": "19/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 5,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 1,
+      "assists": 5
+    }
+  },
+  {
+    "id": "final-import-167",
+    "date": "19/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "Buu",
+      "role": "Soutien",
+      "kills": 0,
+      "deaths": 4,
+      "assists": 5
+    },
+    "mateStats": {
+      "hero": "Cooler",
+      "role": "Défenseur",
+      "kills": 6,
+      "deaths": 6,
+      "assists": 6
+    }
+  },
+  {
+    "id": "final-import-168",
+    "date": "19/02/2026",
+    "result": "Loss",
+    "userStats": {
+      "hero": "C-17",
+      "role": "Soutien",
+      "kills": 1,
+      "deaths": 6,
+      "assists": 4
+    },
+    "mateStats": {
+      "hero": "Vegeta 4",
+      "role": "Défenseur",
+      "kills": 1,
+      "deaths": 3,
+      "assists": 4
+    }
+  }
+]

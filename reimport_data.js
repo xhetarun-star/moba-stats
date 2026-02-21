@@ -1,0 +1,238 @@
+const fs = require('fs');
+const path = require('path');
+
+const HERO_ROLES = {
+    "Son Goku Super": "Attaquant",
+    "Piccolo": "Attaquant",
+    "Dabra": "Attaquant",
+    "Kale": "Attaquant",
+    "Son Goku Mini": "Attaquant",
+    "Bojack": "Attaquant",
+    "Gamma 1 et 2": "Attaquant",
+    "C-18": "Attaquant",
+    "Son Goku Sayen": "Attaquant",
+    "Broly": "Attaquant",
+    "Super Uub": "Attaquant",
+    "Trunks Jeune": "Attaquant",
+    "Toppo": "Attaquant",
+    "Vegito": "Attaquant",
+    "Gogeta 4": "Attaquant",
+    "Janemba": "Attaquant",
+    "Jiren": "Attaquant",
+    "Kefla": "Attaquant",
+    "Vegeta Sayen": "Défenseur",
+    "Zamasu": "Défenseur",
+    "Baby Juvénile": "Défenseur",
+    "Caulifla Sayen 2": "Défenseur",
+    "Cooler": "Défenseur",
+    "Cell": "Défenseur",
+    "Vegeta 4": "Défenseur",
+    "Bardock": "Défenseur",
+    "Buu": "Soutien",
+    "Krillin": "Soutien",
+    "Son Gohan Petit": "Soutien",
+    "Frieza 1": "Soutien",
+    "C-17": "Soutien",
+    "Gotenks": "Soutien",
+    "Hit": "Soutien",
+    "Ultimate Gohan": "Soutien"
+};
+
+const mapRole = (hero) => HERO_ROLES[hero] || 'Attaquant';
+
+const rawData = `14/01/2026	21:44	VICTOIRE	Broly	Cooler	5	2	8	3	1	10	Broly + Cooler
+14/01/2026	21:34	VICTOIRE	Broly	Cooler	7	0	7	5	0	5	Broly + Cooler
+14/01/2026	21:22	DÉFAITE	Broly	Trunks Jeune	0	0	0	0	0	0	Broly + Trunks Jeune
+14/01/2026	21:08	DÉFAITE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	20:54	DÉFAITE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+14/01/2026	20:40	DÉFAITE	C-18	Gotenks	4	8	3	1	3	3	C-18 + Gotenks
+14/01/2026	17:52	DÉFAITE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	17:50	VICTOIRE	Vegeta 4	Trunks Jeune	7	0	5	6	1	5	Vegeta 4 + Trunks Jeune
+14/01/2026	17:34	VICTOIRE	Broly	Cooler	9	5	0	1	6	4	Broly + Cooler
+14/01/2026	17:21	VICTOIRE	Broly	Gotenks	5	7	8	5	4	7	Broly + Gotenks
+14/01/2026	16:54	VICTOIRE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	16:46	VICTOIRE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+14/01/2026	16:31	VICTOIRE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+14/01/2026	16:13	DÉFAITE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	16:03	VICTOIRE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	15:45	VICTOIRE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+14/01/2026	15:33	VICTOIRE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+14/01/2026	15:21	VICTOIRE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	15:12	DÉFAITE	Buu	Cooler	0	5	5	0	5	8	Buu + Cooler
+14/01/2026	15:01	VICTOIRE	Broly	Gotenks	8	2	5	2	3	5	Broly + Gotenks
+14/01/2026	14:50	VICTOIRE	Broly	Gotenks	11	4	6	1	2	12	Broly + Gotenks
+14/01/2026	14:50	DÉFAITE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	11:00	VICTOIRE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	10:30	DÉFAITE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+14/01/2026	10:00	DÉFAITE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+14/01/2026	10:30	DÉFAITE	Vegeta 4	Trunks Jeune	4	4	7	5	5	1	Vegeta 4 + Trunks Jeune
+14/01/2026	10:00	VICTOIRE	Buu	Trunks Jeune	0	0	0	0	0	0	Buu + Trunks Jeune
+14/01/2026	10:01	VICTOIRE	Broly	Cooler	7	1	2	4	3	3	Broly + Cooler
+15/01/2026	18:29	DÉFAITE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+15/01/2026	18:42	VICTOIRE	Cell	Trunks Jeune	2	3	3	5	4	3	Cell + Trunks Jeune
+15/01/2026	20:41	VICTOIRE	Cell	Trunks Jeune	0	1	7	7	0	1	Cell + Trunks Jeune
+15/01/2026	21:07	DÉFAITE	Broly	Cooler	7	1	4	6	0	4	Broly + Cooler
+15/01/2026	21:29	DÉFAITE	Broly	Gotenks	0	0	0	0	0	0	Broly + Gotenks
+15/01/2026	21:46	VICTOIRE	Cell	Trunks Jeune	4	2	1	4	3	1	Cell + Trunks Jeune
+15/01/2026	22:02	DÉFAITE	Cell	Trunks Jeune	1	3	0	2	2	1	Cell + Trunks Jeune
+15/01/2026	22:16	DÉFAITE	Broly	Trunks Jeune	2	5	3	3	3	2	Broly + Trunks Jeune
+16/01/2026	18:10	VICTOIRE	Buu	Cooler	3	0	10	1	0	8	Buu + Cooler
+16/01/2026	18:24	VICTOIRE	Son Goku Super Sayen	Cooler	11	4	3	0	5	13	Son Goku Super Sayen + Cooler
+17/01/2026	11:15	VICTOIRE	Cell	Trunks Jeune	4	0	0	2	1	0	Cell + Trunks Jeune
+17/01/2026	16:58	DÉFAITE	Cell	Trunks Jeune	4	2	2	1	3	4	Cell + Trunks Jeune
+17/01/2026	17:30	DÉFAITE	Broly	Gotenks	7	3	1	3	1	7	Gotenks + Broly
+18/01/2026	07:45	VICTOIRE	Broly	Cooler	10	6	6	2	5	7	Broly + Cooler
+18/01/2026	08:01	VICTOIRE	Broly	Ultimate Gohan	9	3	2	4	5	5	Broly + Ultimate Gohan
+18/01/2026	08:17	VICTOIRE	Cooler	Trunks Jeune	1	3	3	3	1	1	Cooler + Trunks Jeune
+18/01/2026	14:20	VICTOIRE	Son Goku Super Sayen	Gotenks	7	3	4	3	2	7	Son Goku Super Sayen + Cooler
+18/01/2026	14:33	DÉFAITE	Broly	Ultimate Gohan	1	7	6	1	4	4	Broly + Ultimate Gohan
+18/01/2026	14:47	DÉFAITE	Broly	Trunks Jeune	2	9	9	7	3	4	Broly + Trunks Jeune
+18/01/2026	15:01	VICTOIRE	Cooler	Trunks Jeune	9	1	8	12	0	5	Cooler + Trunks Jeune
+18/01/2026	15:17	VICTOIRE	Broly	Trunks Jeune	7	1	1	5	0	0	Broly + Trunks Jeune
+18/01/2026	15:32	VICTOIRE	Broly	Gotenks	8	0	3	3	0	7	Broly + Gotenks
+18/01/2026	15:43	VICTOIRE	Broly	Ultimate Gohan	0	6	1	0	2	2	Broly + Ultimate Gohan
+18/01/2026	15:57	DÉFAITE	Broly	Trunks Jeune	1	6	6	8	6	2	Broly + Trunks Jeune
+18/01/2026	16:09	DÉFAITE	Broly	Cooler	1	5	2	1	2	1	Broly + Cooler
+18/01/2026	21:00	DÉFAITE	Kale	Hit	10	6	3	4	2	10	Kale + Hit
+18/01/2023	21:15	VICTOIRE	Kale	Hit	8	4	3	3	1	8	Kale + Hit
+18/01/2026	21:30	VICTOIRE	Kale	Hit	8	0	5	6	0	6	Kale + Hit
+19/01/2026	20:50	VICTOIRE	Kale	Cooler	8	2	5	4	3	7	Kale + Cooler
+19/01/2026	21:05	VICTOIRE	Kale	Hit	5	0	6	5	0	6	Kale + Hit
+19/01/2026	21:28	VICTOIRE	Kale	Hit	7	8	5	3	4	4	Kale + Hit
+19/01/2026	21:39	DÉFAITE	Kale	Hit	3	2	2	2	2	1	Kale + Hit
+19/01/2026	21:50	VICTOIRE	Kale	Hit	4	0	5	3	4	5	Kale + Hit
+21/01/2026	14:15	VICTOIRE	Son Goku Super Sayen	Cooler	8	6	7	2	7	9	Son Goku Super Sayen + Cooler
+21/01/2026	14:30	VICTOIRE	Son Goku Super Sayen	Cooler	6	2	4	2	3	6	Son Goku Super Sayen + Cooler
+21/01/2026	14:56	VICTOIRE	Son Goku Super Sayen	Cooler	6	3	4	1	5	6	Son Goku Super Sayen + Cooler
+21/01/2026	15:08	VICTOIRE	Kale	Cooler	10	1	2	2	1	8	Kale + Cooler
+21/01/2026	15:15	DÉFAITE	Kale	Cooler	5	4	7	4	2	6	Kale + Cooler
+21/01/2026	15:30	DÉFAITE	Kale	Hit	2	6	3	4	1	0	Kale + Hit
+21/01/2026	15:50	DÉFAITE	Broly	Hit	6	4	8	4	4	7	Broly + Hit
+21/01/2026	16:15	VICTOIRE	Broly	Ultimate Gohan	4	4	4	0	5	8	Broly + Ultimate Gohan
+21/01/2026	16:44	DÉFAITE	Broly	Ultimate Gohan	4	5	7	3	1	5	Broly + Ultimate Gohan
+21/01/2026	16:54	VICTOIRE	Cooler	Trunks Jeune	1	1	5	9	0	0	Cooler + Trunks Jeune
+21/01/2026	17:05	DÉFAITE	Broly	Gotenks	0	4	0	1	5	0	Broly + Gotenks
+21/01/2026	20:30	VICTOIRE	Broly	Ultimate Gohan	8	4	4	2	5	4	Broly + Ultimate Gohan
+21/01/2026	21:03	VICTOIRE	Broly	Ultimate Gohan	5	5	2	4	1	2	Broly + Ultimate Gohan
+21/01/2026	21:10	DÉFAITE	Broly	Ultimate Gohan	3	4	3	1	3	4	Broly + Ultimate Gohan
+21/01/2026	21:29	VICTOIRE	Broly	Hit	7	5	8	4	1	7	Broly + Hit
+21/01/2026	21:35	VICTOIRE	Cooler	Trunks Jeune	0	4	8	7	3	5	Cooler + Trunks Jeune
+26/01/2026	20:38	VICTOIRE	Broly	Zamasu	7	1	3	2	0	7	Broly + Zamasu
+26/01/2026	20:52	VICTOIRE	Broly	Hit	2	2	4	6	0	2	Broly + Hit
+26/01/2026	21:00	DÉFAITE	Broly	Hit	3	5	9	3	2	10	Broly + Hit
+26/01/2026	21:15	VICTOIRE	Buu	Trunks Jeune	3	3	17	13	1	8	Buu + Trunks Jeune
+26/01/2026	21:30	DÉFAITE	Broly	Ultimate Gohan	10	4	9	7	3	7	Broly + Ultimate Gohan
+28/01/2026	14:40	DÉFAITE	Bardock	Trunks Jeune	1	4	2	1	7	0	Bardock + Trunks Jeune
+28/01/2026	14:57	VICTOIRE	Broly	Trunks Jeune	3	3	5	10	4	1	Broly + Trunks jeune
+28/01/2026	15:10	DÉFAITE	Broly	Hit	9	5	4	5	3	7	Broly + Hit
+28/01/2026	15:24	DÉFAITE	Broly	Ultimate Gohan	4	5	2	3	4	1	Broly + Ultimate Gohan
+28/01/2026	15:38	VICTOIRE	Broly	Trunks Jeune	4	2	6	13	1	6	Broly + Trunks jeune
+28/01/2026	15:47	VICTOIRE	Broly	Trunks Jeune	4	1	6	4	2	3	Broly + Trunks jeune
+28/01/2026	16:00	DÉFAITE	Broly	Trunks Jeune	2	3	0	3	3	2	Broly + Trunks Jeune
+28/01/2026	16:37	VICTOIRE	Son Goku Super Sayen	Trunks Jeune	6	4	7	8	4	4	Son Goku Super Sayen + Trunks Jeune
+28/01/2026	16:48	DÉFAITE	Son Goku Sayen	Trunks Jeune	0	4	1	0	6	1	Son Goku Sayen + Trunks Jeune
+29/01/2026	21:30	VICTOIRE	C-18	Vegeta 4	10	0	6	3	0	13	C-18 + Vegeta 4
+29/01/2026	21:45	DÉFAITE	C-18	Ultimate Gohan	3	6	5	4	2	4	C-18 + Ultimate Gohan
+03/02/2026	20:50	VICTOIRE	Vegeta 4	Vegito	1	0	5	5	0	3	Vegeta 4 + Vegito
+03/02/2026	21:07	DÉFAITE	Vegeta 4	Vegito	1	4	5	7	2	0	Vegeta 4 + Vegito
+03/02/2026	21:18	VICTOIRE	Vegeta 4	Vegito	2	1	6	8	0	1	Vegeta 4 + Vegito
+03/02/2026	21:28	DÉFAITE	Vegeta 4	Vegito	1	4	2	2	4	1	Vegeta 4 + Vegito
+03/02/2026	21:38	DÉFAITE	Vegeta 4	Vegito	2	4	4	3	2	3	Vegeta 4 + Vegito
+03/02/2026	21:50	DÉFAITE	Broly	Trunks Jeune	1	5	1	3	4	0	Broly + Trunks jeune
+04/02/2026	13:40	VICTOIRE	Bardock	Vegito	3	0	10	13	0	3	Bardock + Vegito
+04/02/2026	14:16	VICTOIRE	Bardock	Vegito	2	1	10	7	1	4	Bardock + Vegito
+04/02/2026	14:20	VICTOIRE	Bardock	Vegito	0	0	7	5	2	6	Bardock + Vegito
+04/02/2026	14:32	VICTOIRE	Bardock	Vegito	1	2	7	13	1	3	Bardock + Vegito
+04/02/2026	14:43	VICTOIRE	Bardock	Vegito	3	0	6	7	0	3	Bardock + Vegito
+04/02/2026	14:54	VICTOIRE	Bardock	Vegito	2	3	5	8	2	6	Bardock + Vegito
+04/02/2026	15:04	VICTOIRE	Bardock	Vegito	5	0	10	7	1	9	Bardock + Vegito
+04/02/2026	15:21	VICTOIRE	Bardock	Vegito	3	1	10	12	3	2	Bardock + Vegito
+04/02/2026	15:32	VICTOIRE	Bardock	Vegito	2	0	7	4	0	4	Bardock + Vegito
+04/02/2026	15:46	DÉFAITE	Bardock	Vegito	0	3	8	8	1	3	Bardock + Vegito
+04/02/2026	15:59	VICTOIRE	Bardock	Vegito	3	0	4	5	3	7	Bardock + Vegito
+04/02/2026	16:15	VICTOIRE	Bardock	Vegito	3	1	4	4	0	7	Bardock + Vegito
+04/02/2026	16:25	VICTOIRE	Broly	Hit	3	5	6	3	1	5	Broly + Hit
+04/02/2026	16:38	DÉFAITE	Broly	Ultimate Gohan	3	4	7	0	3	2	Broly + Ultimate Gohan
+04/02/2026	17:40	VICTOIRE	Broly	Ultimate Gohan	3	5	7	2	0	5	Broly + Ultimate Gohan
+04/02/2026	17:59	VICTOIRE	Broly	Gotenks	6	2	3	0	2	4	Broly + Gotenks
+04/02/2026	18:12	VICTOIRE	Broly	Hit	3	3	3	0	4	1	Broly + Hit
+04/02/2026	18:25	VICTOIRE	Broly	Hit	10	2	10	4	3	12	Broly + Hit
+04/02/2026	18:43	DÉFAITE	Broly	Ultimate Gohan	2	6	8	2	5	9	Broly + Ultimate Gohan
+04/02/2026	20:56	VICTOIRE	Broly	Ultimate Gohan	3	8	8	4	3	3	Broly + Ultimate Gohan
+04/02/2026	21:11	VICTOIRE	Broly	Gotenks	7	9	6	3	3	4	Broly + Gotenks
+04/02/2026	21:24	VICTOIRE	Broly	Hit	5	1	6	1	1	3	Broly + Hit
+04/02/2026	21:39	VICTOIRE	Broly	Zamasu	2	4	4	1	1	8	Broly + Zamasu
+04/02/2026	21:57	DÉFAITE	Broly	Vegeta 4	8	8	16	6	7	8	Broly + Vegeta 4
+04/02/2026	22:08	DÉFAITE	Broly	Cooler	3	7	2	1	5	1	Broly + Cooler
+08/02/2026	13:30	DÉFAITE	Broly	Zamasu	4	7	5	4	5	4	Broly + Zamasu
+08/02/2026	14:00	DÉFAITE	Broly	Vegeta 4	2	7	1	2	7	3	Broly + Vegeta 4
+08/02/2026	14:14	VICTOIRE	Broly	Hit	10	0	5	4	3	4	Broly + Hit
+08/02/2026	14:26	DÉFAITE	Broly	Ultimate Gohan	3	6	2	1	9	1	Broly + Ultimate Gohan
+08/02/2026	14:38	DÉFAITE	Broly	Gotenks	1	7	3	0	3	1	Broly + Gotenks
+08/02/2026	14:45	DÉFAITE	Son Goku Super Sayen	Hit	1	5	2	1	2	1	Son Goku Super Sayen + Hit
+08/02/2026	15:01	VICTOIRE	Broly	Cooler	3	0	7	4	0	3	Broly + Cooler
+08/02/2026	15:15	VICTOIRE	Broly	Cooler	3	4	9	7	2	3	Broly + Cooler
+08/02/2026	15:28	DÉFAITE	Broly	Zamasu	3	2	6	6	2	3	Broly + Zamasu
+10/02/2026	20:50	DÉFAITE	Broly	Zamasu	2	3	2	1	3	3	Broly + Zamasu
+10/02/2026	21:01	VICTOIRE	Broly	Vegeta 4	1	0	4	4	0	3	Broly + Vegeta 4
+10/02/2026	21:17	DÉFAITE	Broly	Cooler	5	1	3	1	2	4	Broly + Cooler
+10/02/2026	21:31	DÉFAITE	Broly	Zamasu	1	5	4	2	3	1	Broly + Zamasu
+10/02/2026	21:50	DÉFAITE	Piccolo	Vegeta 4	8	3	6	3	1	5	Piccolo + Vegeta 4
+11/02/2026	12:55	VICTOIRE	Bardock	Vegito	2	3	6	5	1	9	Bardock + Vegito
+11/02/2026	13:08	VICTOIRE	Bardock	Vegito	0	1	4	3	4	3	Bardock + Vegito
+11/02/2026	13:21	VICTOIRE	Broly	Vegeta 4	6	3	1	2	3	3	Broly + Vegeta 4
+11/02/2026	13:34	VICTOIRE	Broly	Hit	4	1	2	2	0	3	Broly + Hit
+11/02/2026	13:48	DÉFAITE	Bardock	Vegito	2	0	2	2	3	1	Bardock + Vegito
+11/02/2026	14:04	VICTOIRE	Broly	Zamasu	6	3	6	2	0	5	Broly + Zamasu
+11/02/2026	14:16	VICTOIRE	Broly	Zamasu	2	1	4	2	1	5	Broly + Zamasu
+11/02/2026	14:29	VICTOIRE	Broly	Zamasu	5	2	3	2	2	5	Broly + Zamasu
+11/02/2026	14:15	VICTOIRE	Broly	Vegeta 4	9	1	4	3	1	12	Broly + Vegeta 4
+11/02/2026	14:59	VICTOIRE	Bardock	Vegito	2	0	11	8	2	4	Bardock + Vegito
+12/02/2026	14:00	VICTOIRE	Broly	Zamasu	5	3	1	2	1	2	Broly + Zamasu
+12/02/2026	14:18	VICTOIRE	Broly	Zamasu	3	3	6	0	1	4	Broly + Zamasu
+12/02/2026	14:36	VICTOIRE	Broly	Zamasu	4	4	3	3	5	4	Broly + Zamasu
+12/02/2026	14:49	VICTOIRE	Bardock	Vegito	1	2	8	8	4	5	Bardock + Vegito
+16/02/2026	14:52	VICTOIRE	Bardock	Vegito	0	5	2	9	4	7	Bardock + Vegito
+16/02/2026	15:02	VICTOIRE	Bardock	Vegito	0	2	7	7	1	2	Bardock + Vegito
+16/02/2026	15:17	DÉFAITE	Bardock	Vegito	0	8	0	8	5	1	Bardock + Vegito
+18/02/2026	09:21	DÉFAITE	Bardock	Kefla	2	3	3	3	2	2	Bardock + Kefla
+18/02/2026	09:37	DÉFAITE	Bardock	Kefla	1	3	11	10	3	0	Bardock + Kefla
+18/02/2026	09:47	VICTOIRE	Bardock	Kefla	3	0	9	12	0	4	Bardock + Kefla
+18/02/2026	15:30	DÉFAITE	Bardock	Kefla	3	1	5	7	2	4	Bardock + Kefla
+19/02/2026	13:40	VICTOIRE	Bardock	Gotenks	7	0	4	6	3	5	Bardock + Gotenks
+19/02/2026	13:56	VICTOIRE	Bardock	Vegito	6	0	10	7	2	10	Bardock + Vegito
+19/02/2026	14:00	VICTOIRE	Bardock	Vegito	1	0	3	4	0	4	Bardock + Vegito
+19/02/2026	14:18	VICTOIRE	Bardock	Vegito	1	2	3	10	3	1	Bardock + Vegito
+19/02/2026	14:30	VICTOIRE	Bardock	Vegito	3	3	8	7	3	5	Bardock + Vegito
+19/02/2026	14:47	VICTOIRE	Bardock	Vegito	3	1	7	8	1	3	Bardock + Vegito
+19/02/2026	14:50	VICTOIRE	Broly	Zamasu	4	4	3	2	1	4	Broly + Zamasu
+19/02/2026	15:00	DÉFAITE	Buu	Cooler	0	5	4	1	1	5	Buu + Cooler
+19/02/2026	15:10	DÉFAITE	Buu	Cooler	0	4	5	6	6	6	Buu + Cooler
+19/02/2026	15:47	DÉFAITE	C-17	Vegeta 4	1	6	4	1	3	4	C-17 + Vegeta 4`;
+
+const lines = rawData.trim().split('\n');
+const matches = lines.map((line, index) => {
+    const parts = line.split('\t');
+    return {
+        id: `fresh-import-${index}`,
+        date: parts[0],
+        result: (parts[2] === 'VICTOIRE' || parts[2] === 'Win') ? 'Win' : 'Loss',
+        userStats: {
+            hero: parts[3],
+            role: mapRole(parts[3]),
+            kills: parseInt(parts[5] || 0),
+            deaths: parseInt(parts[6] || 0),
+            assists: parseInt(parts[7] || 0)
+        },
+        mateStats: {
+            hero: parts[4],
+            role: mapRole(parts[4]),
+            kills: parseInt(parts[8] || 0),
+            deaths: parseInt(parts[9] || 0),
+            assists: parseInt(parts[10] || 0)
+        }
+    };
+});
+
+console.log(`${matches.length} matches traités.`);
+fs.writeFileSync(path.join(__dirname, 'imported_stats.json'), JSON.stringify(matches, null, 2));
