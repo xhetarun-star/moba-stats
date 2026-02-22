@@ -1,14 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Match } from '../lib/types';
-import { Award, Users, Star, TrendingUp, User, Shield, Sword, Heart, Activity, Target } from 'lucide-react';
+import { Award, Users, Star, TrendingUp, User, Shield, Sword, Heart, Activity, Target, Filter } from 'lucide-react';
 
 interface AdvancedStatsProps {
     matches: Match[];
 }
 
 const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
+    const [strictDuo, setStrictDuo] = useState(false);
+
     if (matches.length === 0) return null;
 
     const processHeroStats = (filterFn: (m: Match, side: 'user' | 'mate') => boolean = () => true) => {
@@ -87,8 +89,10 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
         duoGroup[key].total++;
         if (m.result === 'Win') duoGroup[key].wins++;
     });
+
     const topDuos = Object.entries(duoGroup)
         .map(([key, s]) => ({ key, winrate: (s.wins / s.total) * 100, total: s.total }))
+        .filter(d => !strictDuo || d.total >= 5)
         .sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
 
     const getRoleIcon = (role: string) => {
@@ -232,7 +236,29 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                         <StatList data={topGlobal} type="wr" />
                     </div>
                     <div className="card" style={{ borderTop: '2px solid var(--win-color)' }}>
-                        <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', opacity: 0.8 }}>Meilleurs Duos</h4>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                            <h4 style={{ fontSize: '0.9rem', opacity: 0.8, margin: 0 }}>Meilleurs Duos</h4>
+                            <button
+                                onClick={() => setStrictDuo(!strictDuo)}
+                                style={{
+                                    background: strictDuo ? 'var(--dbz-gold)' : 'rgba(255,255,255,0.05)',
+                                    color: strictDuo ? 'black' : 'var(--text-secondary)',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    padding: '0.3rem 0.6rem',
+                                    fontSize: '0.7rem',
+                                    fontWeight: 800,
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.4rem',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                <Filter size={12} />
+                                5+ Combats
+                            </button>
+                        </div>
                         <StatList data={topDuos} type="duo" />
                     </div>
                 </div>
