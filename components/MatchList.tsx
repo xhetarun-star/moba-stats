@@ -3,20 +3,16 @@
 import React from 'react';
 import { Match } from '../lib/types';
 import { Trash2, Users, Calendar, Trophy } from 'lucide-react';
-import { saveMatchesToDB } from '../lib/storage';
 
 interface MatchListProps {
     matches: Match[];
-    onMatchDeleted: (matches: Match[]) => void;
+    onMatchDeleted: (id: string) => void;
 }
 
 const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
     const handleDelete = async (id: string) => {
         if (confirm('Supprimer cette partie ?')) {
-            const updated = matches.filter(m => m.id !== id);
-            onMatchDeleted(updated);
-            // Persist to server
-            await saveMatchesToDB(updated);
+            onMatchDeleted(id);
         }
     };
 

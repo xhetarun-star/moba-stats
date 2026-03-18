@@ -13,6 +13,14 @@ export default function Home() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [seasonFilter, setSeasonFilter] = useState<'all' | 's1' | 's2'>('s2');
+
+  const SEASON_2_START = new Date('2026-03-18T00:00:00.000Z');
+  const getSeason = (dateStr: string) => {
+      if (!dateStr || !dateStr.includes('-')) return 's1';
+      const d = new Date(dateStr);
+      return d >= SEASON_2_START ? 's2' : 's1';
+  };
 
   const loadData = async () => {
     setIsRefreshing(true);
@@ -36,6 +44,20 @@ export default function Home() {
   const handleMatchUpdate = (updatedMatches: Match[]) => {
     setMatches(updatedMatches);
   };
+
+  const handleMatchDelete = async (id: string) => {
+    const updated = matches.filter(m => m.id !== id);
+    setMatches(updated);
+    // Since page.tsx imports fetchMatches, it needs saveMatchesToDB.
+    import('../lib/storage').then(({ saveMatchesToDB }) => {
+      saveMatchesToDB(updated);
+    });
+  };
+
+  const filteredMatches = matches.filter(m => {
+    if (seasonFilter === 'all') return true;
+    return getSeason(m.date) === seasonFilter;
+  });
 
   if (!isLoaded) return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'var(--dbz-orange)' }}>
@@ -86,6 +108,27 @@ export default function Home() {
         </div>
 
         <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+          <select 
+            value={seasonFilter} 
+            onChange={(e) => setSeasonFilter(e.target.value as any)}
+            style={{
+              background: '#0f172a',
+              color: 'var(--dbz-gold)',
+              border: '1px solid var(--dbz-gold)',
+              padding: '0.6rem 1rem',
+              borderRadius: '8px',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              outline: 'none',
+              cursor: 'pointer',
+              fontSize: '0.8rem'
+            }}
+          >
+            <option value="s2">Saison 2 (Nouvelle)</option>
+            <option value="s1">Saison 1 (Ancienne)</option>
+            <option value="all">Global</option>
+          </select>
+
           <button
             onClick={loadData}
             disabled={isRefreshing}
@@ -119,10 +162,10 @@ export default function Home() {
       </header>
 
       {/* Hero Stats */}
-      <StatsSummary matches={matches} />
+      <StatsSummary matches={filteredMatches} />
 
       {/* Advanced Insights */}
-      <AdvancedStats matches={matches} />
+      <AdvancedStats matches={filteredMatches} />
 
       {/* Main Grid */}
       <div className="main-content">
@@ -144,10 +187,10 @@ export default function Home() {
               fontSize: '0.8rem',
               fontWeight: 700
             }}>
-              {matches.length} COMBATS
+              {filteredMatches.length} COMBATS
             </span>
           </div>
-          <MatchList matches={matches} onMatchDeleted={handleMatchUpdate} />
+          <MatchList matches={filteredMatches} onMatchDeleted={handleMatchDelete} />
         </section>
       </div>
 
