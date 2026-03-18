@@ -59,14 +59,13 @@ const MatchForm: React.FC<MatchFormProps> = ({ onMatchAdded, currentMatches }) =
 
     return (
         <div className="card animate-fade">
-            <h2 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <PlusCircle size={24} color="var(--accent-primary)" />
+            <h2 className="font-orbitron" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', textTransform: 'uppercase', color: 'var(--dbz-gold)', textShadow: '0 0 10px rgba(255, 193, 7, 0.3)' }}>
+                <PlusCircle size={28} />
                 Nouvelle Partie
             </h2>
-
             <form onSubmit={handleSubmit}>
-                <div style={{ padding: '1rem', border: '1px solid var(--card-border)', borderRadius: '16px', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.02)' }}>
-                    <h3 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'var(--accent-primary)' }}>Moi (Xhelo)</h3>
+                <div style={{ padding: '1.5rem', border: '1px solid rgba(255, 87, 34, 0.2)', borderRadius: '16px', marginBottom: '1.5rem', background: 'linear-gradient(135deg, rgba(255, 87, 34, 0.05), transparent)' }}>
+                    <h3 className="font-orbitron" style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--dbz-orange)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Moi (Xhelo)</h3>
                     <div className="input-group">
                         <label>Héros</label>
                         <select value={userHero} onChange={(e) => handleUserHeroChange(e.target.value)}>
@@ -95,8 +94,8 @@ const MatchForm: React.FC<MatchFormProps> = ({ onMatchAdded, currentMatches }) =
                     </div>
                 </div>
 
-                <div style={{ padding: '1rem', border: '1px solid var(--card-border)', borderRadius: '16px', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.02)' }}>
-                    <h3 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'var(--accent-secondary)' }}>Mate (j9)</h3>
+                <div style={{ padding: '1.5rem', border: '1px solid rgba(0, 229, 255, 0.2)', borderRadius: '16px', marginBottom: '1.5rem', background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.05), transparent)' }}>
+                    <h3 className="font-orbitron" style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--dbz-blue)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Mate (j9)</h3>
                     <div className="input-group">
                         <label>Héros</label>
                         <select value={mateHero} onChange={(e) => handleMateHeroChange(e.target.value)}>

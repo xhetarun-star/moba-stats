@@ -110,21 +110,23 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        padding: '0.7rem 1rem',
-                        background: i === 0 && type !== 'role' ? 'rgba(194, 156, 66, 0.05)' : 'rgba(255,255,255,0.01)',
-                        borderRadius: '10px',
-                        border: i === 0 && type !== 'role' ? '1px solid var(--dbz-gold)' : '1px solid rgba(255,255,255,0.05)',
-                        transition: 'all 0.2s ease'
+                        padding: '0.8rem 1rem',
+                        background: i === 0 && type !== 'role' ? 'linear-gradient(90deg, rgba(255, 193, 7, 0.15), transparent)' : 'rgba(255,255,255,0.03)',
+                        borderRadius: '12px',
+                        border: i === 0 && type !== 'role' ? '1px solid rgba(255, 193, 7, 0.4)' : '1px solid rgba(255,255,255,0.05)',
+                        transition: 'all 0.3s ease',
+                        boxShadow: i === 0 && type !== 'role' ? 'inset 0 0 15px rgba(255,193,7,0.05)' : 'none'
                     }}
+                    className={i === 0 && type !== 'role' ? 'rank-aura-gold' : ''}
+
                     title={item.details ? `Total: ${item.details.k}K / ${item.details.d}D / ${item.details.a}A` : undefined}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         {type !== 'role' && (
-                            <span style={{
+                            <span className="font-orbitron" style={{
                                 color: i === 0 ? 'var(--dbz-gold)' : 'var(--text-secondary)',
                                 fontWeight: 800,
-                                fontSize: '0.8rem',
-                                fontFamily: 'Orbitron, sans-serif'
+                                fontSize: '0.9rem'
                             }}>
                                 #{i + 1}
                             </span>
@@ -144,11 +146,11 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                     <div style={{ textAlign: 'right' }}>
                         {type === 'kda' ? (
                             <>
-                                <div style={{
-                                    color: i === 0 ? 'var(--dbz-gold)' : 'var(--foreground)',
-                                    fontFamily: 'Orbitron, sans-serif',
-                                    fontWeight: 800,
-                                    fontSize: '0.9rem'
+                                <div className="font-orbitron" style={{
+                                    color: i === 0 ? 'var(--dbz-orange)' : 'var(--foreground)',
+                                    fontWeight: 900,
+                                    fontSize: '1.1rem',
+                                    textShadow: i === 0 ? '0 0 10px rgba(255, 87, 34, 0.4)' : 'none'
                                 }}>
                                     {item.kda.toFixed(2)}
                                 </div>
@@ -156,11 +158,11 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                             </>
                         ) : (
                             <>
-                                <div style={{
+                                <div className="font-orbitron" style={{
                                     color: i === 0 ? 'var(--dbz-gold)' : 'var(--win-color)',
-                                    fontFamily: 'Orbitron, sans-serif',
-                                    fontWeight: 800,
-                                    fontSize: '0.9rem'
+                                    fontWeight: 900,
+                                    fontSize: '1.1rem',
+                                    textShadow: i === 0 ? '0 0 10px rgba(255, 193, 7, 0.4)' : 'none'
                                 }}>
                                     {item.winrate.toFixed(0)}%
                                 </div>
@@ -174,13 +176,13 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     );
 
     return (
-        <div style={{ marginBottom: '3rem' }}>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Activity color="var(--accent-primary)" size={24} />
-                Tableau de Bord Stratégique
+        <div style={{ marginBottom: '4rem' }}>
+            <h2 className="font-orbitron" style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--foreground)' }}>
+                <Activity color="var(--dbz-orange)" size={28} />
+                Système d'Analyse Avancé
             </h2>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '2rem', fontStyle: 'italic', opacity: 0.7 }}>
-                Formule KDA : (Kills + Assists) / Morts (minimum 1 mort pour éviter la division par zéro)
+            <div className="font-orbitron" style={{ fontSize: '0.7rem', color: 'var(--dbz-orange)', marginBottom: '2.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8 }}>
+                Données Quantiques & Synergies
             </div>
 
             {/* Xhelo Section */}

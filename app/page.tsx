@@ -7,7 +7,7 @@ import MatchForm from '../components/MatchForm';
 import MatchList from '../components/MatchList';
 import StatsSummary from '../components/StatsSummary';
 import AdvancedStats from '../components/AdvancedStats';
-import { Sword, LayoutDashboard, RefreshCcw, Zap } from 'lucide-react';
+import { Sword, LayoutDashboard, RefreshCcw, Zap, Activity } from 'lucide-react';
 
 export default function Home() {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -67,22 +67,22 @@ export default function Home() {
 
   return (
     <main className="container">
-      {/* Header DBZ Style */}
-      <header style={{
+      {/* Header DBZ Cyberpunk Style */}
+      <header className="card" style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '3rem',
-        padding: '2rem 0',
-        borderBottom: '2px solid var(--dbz-orange)',
-        position: 'relative'
+        padding: '1.5rem 2.5rem',
+        marginTop: '2rem',
+        borderTop: '2px solid var(--dbz-orange)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           <div style={{
             background: 'linear-gradient(135deg, var(--dbz-orange), var(--dbz-red))',
-            padding: '1rem',
+            padding: '1.2rem',
             borderRadius: '20px',
-            boxShadow: '0 0 25px rgba(248, 90, 33, 0.5)',
+            boxShadow: '0 0 25px rgba(255, 87, 34, 0.4)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
@@ -90,43 +90,56 @@ export default function Home() {
             <Zap size={36} color="white" fill="white" />
           </div>
           <div>
-            <h1 style={{
-              fontSize: '2.5rem',
+            <h1 className="font-orbitron" style={{
+              fontSize: '2.8rem',
               lineHeight: 1,
               fontWeight: 900,
-              letterSpacing: '-0.02em',
               textTransform: 'uppercase',
-              color: 'var(--dbz-orange)',
-              textShadow: '2px 2px 0px var(--dbz-blue)'
+              background: 'linear-gradient(to right, var(--dbz-orange), var(--dbz-gold))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 15px rgba(255, 87, 34, 0.3))'
             }}>
               Z-STATS
             </h1>
-            <p style={{ color: 'var(--dbz-yellow)', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              Duo Performance Tracker
+            <p className="font-orbitron" style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: '0.3rem' }}>
+              NEXUS TRACKER v2
             </p>
           </div>
         </div>
 
-        <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+        <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+          {/* Mock Combat Power Indicator */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: '1rem' }}>
+             <span className="font-orbitron" style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>POWER LEVEL</span>
+             <span className="font-orbitron" style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--dbz-gold)', textShadow: '0 0 15px var(--dbz-gold-glow)' }}>
+                 Over 9000
+             </span>
+          </div>
+
+          <div style={{ width: '1px', height: '40px', background: 'var(--card-border)' }}></div>
+
           <select 
             value={seasonFilter} 
             onChange={(e) => setSeasonFilter(e.target.value as any)}
+            className="font-orbitron"
             style={{
-              background: '#0f172a',
-              color: 'var(--dbz-gold)',
-              border: '1px solid var(--dbz-gold)',
-              padding: '0.6rem 1rem',
-              borderRadius: '8px',
+              background: 'rgba(0, 0, 0, 0.4)',
+              color: 'var(--dbz-blue)',
+              border: '1px solid rgba(0, 229, 255, 0.3)',
+              padding: '0.7rem 1.2rem',
+              borderRadius: '12px',
               fontWeight: 800,
               textTransform: 'uppercase',
               outline: 'none',
               cursor: 'pointer',
-              fontSize: '0.8rem'
+              fontSize: '0.8rem',
+              transition: 'all 0.3s'
             }}
           >
-            <option value="s2">Saison 2 (Nouvelle)</option>
-            <option value="s1">Saison 1 (Ancienne)</option>
-            <option value="all">Global</option>
+            <option value="s2">Saison 2 (Actuelle)</option>
+            <option value="s1">Saison 1 (Archive)</option>
+            <option value="all">Database Complète</option>
           </select>
 
           <button
@@ -134,32 +147,19 @@ export default function Home() {
             disabled={isRefreshing}
             className="btn"
             style={{
-              padding: '0.75rem',
-              background: 'var(--dbz-blue)',
-              borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: 'white'
+              padding: '0.8rem',
+              background: 'rgba(0, 229, 255, 0.1)',
+              borderRadius: '12px',
+              border: '1px solid rgba(0, 229, 255, 0.3)',
+              color: 'var(--dbz-blue)'
             }}
-            title="Rafraîchir les données"
+            title="Sonde Radar"
           >
             <RefreshCcw size={20} className={isRefreshing ? 'animate-spin' : ''} />
           </button>
-
-          <a href="#" style={{
-            color: 'var(--dbz-yellow)',
-            fontWeight: 800,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            textDecoration: 'none',
-            fontSize: '1rem',
-            textTransform: 'uppercase'
-          }}>
-            <LayoutDashboard size={20} />
-            Kais Pad
-          </a>
         </nav>
       </header>
+
 
       {/* Hero Stats */}
       <StatsSummary matches={filteredMatches} />

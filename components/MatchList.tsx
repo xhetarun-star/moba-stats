@@ -28,7 +28,11 @@ const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {matches.map(match => (
-                <div key={match.id} className="card animate-fade" style={{ padding: '1.25rem' }}>
+                <div key={match.id} className="card animate-fade" style={{ 
+                    padding: '1.25rem',
+                    background: match.result === 'Win' ? 'linear-gradient(90deg, rgba(0, 230, 118, 0.05), transparent)' : 'linear-gradient(90deg, rgba(255, 23, 68, 0.05), transparent)',
+                    borderLeft: match.result === 'Win' ? '4px solid var(--win-color)' : '4px solid var(--loss-color)'
+                }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                             <div style={{
@@ -36,11 +40,12 @@ const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
                                 height: '12px',
                                 borderRadius: '50%',
                                 background: match.result === 'Win' ? 'var(--win-color)' : 'var(--loss-color)',
-                                boxShadow: `0 0 10px ${match.result === 'Win' ? 'rgba(16, 185, 129, 0.5)' : 'rgba(239, 68, 68, 0.5)'}`
+                                boxShadow: `0 0 10px ${match.result === 'Win' ? 'rgba(0, 230, 118, 0.5)' : 'rgba(255, 23, 68, 0.5)'}`
                             }} />
-                            <span style={{ fontWeight: 700, fontSize: '1.1rem', color: match.result === 'Win' ? 'var(--win-color)' : 'var(--loss-color)' }}>
+                            <span className="font-orbitron" style={{ fontWeight: 900, fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: match.result === 'Win' ? 'var(--win-color)' : 'var(--loss-color)' }}>
                                 {match.result === 'Win' ? 'VICTOIRE' : 'DÉFAITE'}
                             </span>
+
                             <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
                                 {match.date.includes('-') ? new Date(match.date).toLocaleDateString() : match.date}
                             </span>
@@ -56,11 +61,11 @@ const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: '1rem' }}>
                         {/* User Side */}
                         <div style={{ textAlign: 'right' }}>
-                            <div style={{ fontSize: '1.1rem', fontWeight: 600 }}>{match.userStats.hero}</div>
-                            <span className={`badge badge-${match.userStats.role.toLowerCase() === 'soutien' ? 'support' : match.userStats.role.toLowerCase() === 'attaquant' ? 'attacker' : 'defender'}`}>
+                            <div className="font-orbitron" style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--foreground)' }}>{match.userStats.hero}</div>
+                            <span className={`badge badge-${match.userStats.role.toLowerCase() === 'soutien' ? 'support' : match.userStats.role.toLowerCase() === 'attaquant' ? 'attacker' : 'defender'}`} style={{ display: 'inline-block', marginTop: '0.2rem' }}>
                                 {match.userStats.role}
                             </span>
-                            <div style={{ marginTop: '0.5rem', fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-primary)' }}>
+                            <div className="font-orbitron" style={{ marginTop: '0.5rem', fontSize: '1.4rem', fontWeight: 900, color: 'transparent', background: 'linear-gradient(to right, var(--dbz-orange), var(--dbz-red))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                 {match.userStats.kills} / {match.userStats.deaths} / {match.userStats.assists}
                             </div>
                         </div>
@@ -71,11 +76,11 @@ const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
 
                         {/* Mate Side */}
                         <div style={{ textAlign: 'left' }}>
-                            <div style={{ fontSize: '1.1rem', fontWeight: 600 }}>{match.mateStats.hero}</div>
-                            <span className={`badge badge-${match.mateStats.role.toLowerCase() === 'soutien' ? 'support' : match.mateStats.role.toLowerCase() === 'attaquant' ? 'attacker' : 'defender'}`}>
+                            <div className="font-orbitron" style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--foreground)' }}>{match.mateStats.hero}</div>
+                            <span className={`badge badge-${match.mateStats.role.toLowerCase() === 'soutien' ? 'support' : match.mateStats.role.toLowerCase() === 'attaquant' ? 'attacker' : 'defender'}`} style={{ display: 'inline-block', marginTop: '0.2rem' }}>
                                 {match.mateStats.role}
                             </span>
-                            <div style={{ marginTop: '0.5rem', fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-secondary)' }}>
+                            <div className="font-orbitron" style={{ marginTop: '0.5rem', fontSize: '1.4rem', fontWeight: 900, color: 'transparent', background: 'linear-gradient(to right, var(--dbz-blue), var(--dbz-blue-glow))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                 {match.mateStats.kills} / {match.mateStats.deaths} / {match.mateStats.assists}
                             </div>
                         </div>
