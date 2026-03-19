@@ -38,10 +38,13 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
         // Power Grade
         let grade = 'C';
         let gradeColor = '#94a3b8';
-        if (winrate >= 65 && kda >= 3.0) { grade = 'S+'; gradeColor = '#ffd700'; }
-        else if (winrate >= 55 && kda >= 2.5) { grade = 'S'; gradeColor = '#ff5722'; }
-        else if (winrate >= 50 && kda >= 2.0) { grade = 'A'; gradeColor = '#00e5ff'; }
-        else if (winrate >= 45 && kda >= 1.5) { grade = 'B'; gradeColor = '#4caf50'; }
+        let subTitle = 'PERFORMANCE STANDARD';
+
+        if (winrate >= 65 && kda >= 3.0) { grade = 'S+'; gradeColor = '#ffd700'; subTitle = 'PERFECTION ABSOLUE'; }
+        else if ((winrate >= 55 && kda >= 2.5) || kda >= 5.0) { grade = 'S'; gradeColor = '#ff5722'; subTitle = kda >= 5.0 && winrate < 50 ? 'MONSTRE INDIVIDUEL (MAIS DÉFAITES)' : 'DOMINATION'; }
+        else if ((winrate >= 50 && kda >= 2.0) || kda >= 3.5) { grade = 'A'; gradeColor = '#00e5ff'; subTitle = kda >= 3.5 && winrate < 50 ? 'TRÈS BON KDA (DUR À CARRY)' : 'EXCELLENT MAÎTRISE'; }
+        else if ((winrate >= 40 && kda >= 1.5) || kda >= 2.5) { grade = 'B'; gradeColor = '#4caf50'; subTitle = winrate >= 50 ? 'VICTOIRES DANS LA DOULEUR' : 'BON POTENTIEL'; }
+        else { subTitle = 'DIFFICULTÉS MAJEURES'; }
 
         // Heartbeat data (Last 15)
         const recentMatches = heroMatches.slice(-15);
@@ -73,7 +76,7 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
             !isXhelo ? m.userStats.hero === hero : m.mateStats.hero === hero
         );
         let comparison = null;
-        if (otherMatches.length >= 3 && total >= 3) {
+        if (otherMatches.length >= 1 && total >= 1) {
             let ok = 0, od = 0, oa = 0;
             otherMatches.forEach(m => {
                 const stats = !isXhelo ? m.userStats : m.mateStats;
@@ -91,7 +94,7 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
             };
         }
 
-        return { total, winrate, kda, grade, gradeColor, heartbeat, topSynergies, comparison };
+        return { total, winrate, kda, grade, gradeColor, subTitle, heartbeat, topSynergies, comparison };
     }, [matches, hero, isXhelo]);
 
     return (
@@ -159,6 +162,9 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
                                 {data.grade}
                             </motion.div>
                             <div style={{ fontSize: '0.8rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Power Grade</div>
+                            <div style={{ fontSize: '0.65rem', marginTop: '0.5rem', color: data.gradeColor, opacity: 0.9, letterSpacing: '0.1em', maxWidth: '150px', lineHeight: '1.2' }}>
+                                {data.subTitle}
+                            </div>
                         </div>
                     </div>
 
