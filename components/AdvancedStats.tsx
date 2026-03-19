@@ -211,14 +211,6 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
         </div>
     );
 
-    // Filter matches for MasteryNexus based on selected hero and player
-    const duoMatches = selectedNexus ? matches.filter(m => {
-        if (selectedNexus.player === 'xhelo') {
-            return m.userStats.hero === selectedNexus.hero;
-        } else { // j9
-            return m.mateStats.hero === selectedNexus.hero;
-        }
-    }) : [];
 
     return (
         <div style={{ marginBottom: '4rem' }}>
@@ -326,7 +318,7 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
 
             {selectedNexus && (
                 <MasteryNexus
-                    matches={duoMatches}
+                    matches={matches}
                     hero={selectedNexus.hero}
                     player={selectedNexus.player}
                     onClose={() => setSelectedNexus(null)}
