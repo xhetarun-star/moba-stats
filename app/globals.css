@@ -34,9 +34,12 @@
 
 body {
   background-color: var(--background);
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(255, 87, 34, 0.05), transparent 40%),
-    radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.05), transparent 40%);
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(255, 87, 34, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
+    var(--background);
+  background-size: 150% 150%;
+  animation: auraDrift 25s ease-in-out infinite alternate;
   background-attachment: fixed;
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
@@ -44,6 +47,12 @@ body {
   overflow-x: hidden;
   line-height: 1.5;
 }
+
+@keyframes auraDrift {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
 
 .container {
   max-width: 1440px;
@@ -64,6 +73,23 @@ body {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   overflow: hidden;
+}
+
+/* Glass 2.0 Dynamic Spotlight Lighting */
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(600px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px), rgba(255, 255, 255, 0.06), transparent 40%);
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+.card:hover::after {
+  opacity: 1;
 }
 
 .card::before {
@@ -103,6 +129,11 @@ body {
 h1, h2, h3, .stat-title, .font-orbitron {
   font-family: 'Orbitron', sans-serif;
   letter-spacing: -0.01em;
+}
+
+.font-syncopate {
+  font-family: 'Syncopate', sans-serif;
+  letter-spacing: 0.05em;
 }
 
 /* Forms & Inputs */

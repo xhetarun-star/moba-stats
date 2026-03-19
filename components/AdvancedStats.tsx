@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { Match } from '../lib/types';
 import { Award, Users, Star, TrendingUp, User, Shield, Sword, Heart, Activity, Target, Filter } from 'lucide-react';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { motion } from 'framer-motion';
 
 interface AdvancedStatsProps {
     matches: Match[];
@@ -95,6 +97,33 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
         .filter(d => !strictDuo || d.total >= 5)
         .sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
 
+    // --- Radar Chart Calculation ---
+    let uK = 0, uD = 0, uA = 0;
+    let mK = 0, mD = 0, mA = 0;
+    matches.forEach(m => {
+        uK += m.userStats.kills; uD += m.userStats.deaths; uA += m.userStats.assists;
+        mK += m.mateStats.kills; mD += m.mateStats.deaths; mA += m.mateStats.assists;
+    });
+
+    const userTotalGames = matches.length;
+    const maxK = Math.max(uK, mK) || 1;
+    const maxA = Math.max(uA, mA) || 1;
+    const avgUD = userTotalGames ? uD / userTotalGames : 0;
+    const avgMD = userTotalGames ? mD / userTotalGames : 0;
+    const maxAvgD = Math.max(avgUD, avgMD) || 1;
+    const uKDA = (uK + uA) / Math.max(1, uD);
+    const mKDA = (mK + mA) / Math.max(1, mD);
+    const maxKDA = Math.max(uKDA, mKDA) || 1;
+    const duoWR = userTotalGames > 0 ? (matches.filter(m => m.result === 'Win').length / userTotalGames) * 100 : 0;
+
+    const radarData = [
+        { subject: 'EFFICACITÉ', xhelo: duoWR, j9: duoWR, fullMark: 100 },
+        { subject: 'AGRESSIVITÉ', xhelo: (uK / maxK) * 100, j9: (mK / maxK) * 100, fullMark: 100 },
+        { subject: 'SOUTIEN', xhelo: (uA / maxA) * 100, j9: (mA / maxA) * 100, fullMark: 100 },
+        { subject: 'SURVIE', xhelo: Math.max(0, 100 - ((avgUD / maxAvgD) * 100)), j9: Math.max(0, 100 - ((avgMD / maxAvgD) * 100)), fullMark: 100 },
+        { subject: 'IMPACT', xhelo: (uKDA / maxKDA) * 100, j9: (mKDA / maxKDA) * 100, fullMark: 100 },
+    ];
+
     const getRoleIcon = (role: string) => {
         if (role.includes('Attaq')) return <Sword size={14} />;
         if (role.includes('Défens')) return <Shield size={14} />;
@@ -104,8 +133,11 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const StatList = ({ data, type }: { data: any[], type: 'wr' | 'kda' | 'duo' | 'role' }) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             {data.map((item, i) => (
-                <div
+                <motion.div
                     key={item.name || item.key}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
                     style={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -118,7 +150,6 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                         boxShadow: i === 0 && type !== 'role' ? 'inset 0 0 15px rgba(255,193,7,0.05)' : 'none'
                     }}
                     className={i === 0 && type !== 'role' ? 'rank-aura-gold' : ''}
-
                     title={item.details ? `Total: ${item.details.k}K / ${item.details.d}D / ${item.details.a}A` : undefined}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -170,7 +201,7 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                             </>
                         )}
                     </div>
-                </div>
+                </motion.div>
             ))}
         </div>
     );
@@ -229,14 +260,27 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
 
             {/* Global & Synergie Section */}
             <div>
-                <h3 style={{ fontSize: '1.2rem', color: '#ffd700', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <h3 className="font-syncopate" style={{ fontSize: '1.2rem', color: '#ffd700', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Target size={20} /> Synergie & Global
                 </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
                     <div className="card" style={{ borderTop: '2px solid #ffd700' }}>
-                        <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', opacity: 0.8 }}>Héros les plus Forts (Global)</h4>
-                        <StatList data={topGlobal} type="wr" />
+                        <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', opacity: 0.8 }}>Analyse Vectorielle (Radar)</h4>
+                        <div style={{ width: '100%', height: 300, cursor: 'crosshair' }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
+                                    <PolarGrid stroke="rgba(255,255,255,0.1)" />
+                                    <PolarAngleAxis dataKey="subject" tick={{ fill: 'var(--text-secondary)', fontSize: 10, fontFamily: 'Orbitron' }} />
+                                    <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                                    <Tooltip contentStyle={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderRadius: '8px', color: 'white' }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: 'Orbitron' }} />
+                                    <Radar name="Xhelo" dataKey="xhelo" stroke="var(--dbz-orange)" fill="var(--dbz-orange)" fillOpacity={0.4} />
+                                    <Radar name="j9" dataKey="j9" stroke="var(--dbz-blue)" fill="var(--dbz-blue)" fillOpacity={0.4} />
+                                </RadarChart>
+                            </ResponsiveContainer>
+                        </div>
                     </div>
+                    
                     <div className="card" style={{ borderTop: '2px solid var(--win-color)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                             <h4 style={{ fontSize: '0.9rem', opacity: 0.8, margin: 0 }}>Meilleurs Duos</h4>

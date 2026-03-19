@@ -3,6 +3,7 @@
 import React from 'react';
 import { Match } from '../lib/types';
 import { Trash2, Users, Calendar, Trophy } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface MatchListProps {
     matches: Match[];
@@ -27,13 +28,23 @@ const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {matches.map(match => (
-                <div key={match.id} className="card animate-fade" style={{ 
-                    padding: '1.25rem',
-                    background: match.result === 'Win' ? 'linear-gradient(90deg, rgba(0, 230, 118, 0.05), transparent)' : 'linear-gradient(90deg, rgba(255, 23, 68, 0.05), transparent)',
-                    borderLeft: match.result === 'Win' ? '4px solid var(--win-color)' : '4px solid var(--loss-color)'
-                }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <AnimatePresence>
+                {matches.map((match, i) => (
+                    <motion.div 
+                        key={match.id} 
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, height: 0 }}
+                        transition={{ delay: i * 0.05, duration: 0.3 }}
+                        className="card" 
+                        style={{ 
+                            padding: '1.25rem',
+                            background: match.result === 'Win' ? 'linear-gradient(90deg, rgba(0, 230, 118, 0.05), transparent)' : 'linear-gradient(90deg, rgba(255, 23, 68, 0.05), transparent)',
+                            borderLeft: match.result === 'Win' ? '4px solid var(--win-color)' : '4px solid var(--loss-color)',
+                            marginBottom: '1rem'
+                        }}
+                    >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                             <div style={{
                                 width: '12px',
@@ -83,10 +94,11 @@ const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
                             <div className="font-orbitron" style={{ marginTop: '0.5rem', fontSize: '1.4rem', fontWeight: 900, color: 'transparent', background: 'linear-gradient(to right, var(--dbz-blue), var(--dbz-blue-glow))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                 {match.mateStats.kills} / {match.mateStats.deaths} / {match.mateStats.assists}
                             </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            ))}
+                    </motion.div>
+                ))}
+            </AnimatePresence>
         </div>
     );
 };
