@@ -117,7 +117,7 @@ export default function Home() {
               Z-STATS
             </h1>
             <p className="font-orbitron" style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: '0.3rem' }}>
-              NEXUS TRACKER v2
+              NEXUS TRACKER v2.1
             </p>
           </div>
         </div>
