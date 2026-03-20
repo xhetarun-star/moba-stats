@@ -13,13 +13,15 @@ const StatsSummary: React.FC<StatsSummaryProps> = ({ matches }) => {
     const wins = matches.filter(m => m.result === 'Win').length;
     const winrate = totalGames > 0 ? Math.round((wins / totalGames) * 100) : 0;
 
-    const avgUserKDA = totalGames > 0
-        ? (matches.reduce((acc, m) => acc + (m.userStats.kills + m.userStats.assists) / Math.max(1, m.userStats.deaths), 0) / totalGames).toFixed(2)
-        : "0.00";
+    let tk = 0, td = 0, ta = 0;
+    let mk = 0, md = 0, ma = 0;
+    matches.forEach(m => {
+        tk += m.userStats.kills; td += m.userStats.deaths; ta += m.userStats.assists;
+        mk += m.mateStats.kills; md += m.mateStats.deaths; ma += m.mateStats.assists;
+    });
 
-    const avgMateKDA = totalGames > 0
-        ? (matches.reduce((acc, m) => acc + (m.mateStats.kills + m.mateStats.assists) / Math.max(1, m.mateStats.deaths), 0) / totalGames).toFixed(2)
-        : "0.00";
+    const avgUserKDA = totalGames > 0 ? ((tk + ta) / Math.max(1, td)).toFixed(2) : "0.00";
+    const avgMateKDA = totalGames > 0 ? ((mk + ma) / Math.max(1, md)).toFixed(2) : "0.00";
 
     const winrateDegree = (winrate / 100) * 360;
 
