@@ -3,6 +3,7 @@ const path = require('path');
 
 const HERO_ROLES = {
     "Son Goku Super": "Attaquant",
+    "Goku GOD": "Attaquant",
     "Piccolo": "Attaquant",
     "Dabra": "Attaquant",
     "Kale": "Attaquant",

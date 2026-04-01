@@ -3,6 +3,7 @@ const path = require('path');
 
 const HERO_ROLES = {
     "Son Goku Super": "Attaquant",
+    "Goku GOD": "Attaquant",
     "Piccolo": "Attaquant",
     "Dabra": "Attaquant",
     "Kale": "Attaquant",
@@ -50,6 +51,7 @@ const normalizeHeroName = (name) => {
     if (n === "Broly" || n === "broly") return "Broly";
     if (n === "cell" || n === "Cell") return "Cell";
     if (n.toLowerCase() === "vegeta god") return "Vegeta GOD";
+    if (n.toLowerCase() === "goku god") return "Goku GOD";
     return n;
 };
 
