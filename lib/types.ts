@@ -42,6 +42,7 @@ export const HERO_ROLES: Record<string, Role> = {
     "Cooler": "Défenseur",
     "Cell": "Défenseur",
     "Vegeta 4": "Défenseur",
+    "Vegeta GOD": "Défenseur",
     "Bardock": "Défenseur",
     "Buu": "Soutien",
     "Krillin": "Soutien",

@@ -27,6 +27,7 @@ const HERO_ROLES = {
     "Cooler": "Défenseur",
     "Cell": "Défenseur",
     "Vegeta 4": "Défenseur",
+    "Vegeta GOD": "Défenseur",
     "Bardock": "Défenseur",
     "Buu": "Soutien",
     "Krillin": "Soutien",

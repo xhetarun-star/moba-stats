@@ -27,6 +27,7 @@ const HERO_ROLES = {
     "Cooler": "Défenseur",
     "Cell": "Défenseur",
     "Vegeta 4": "Défenseur",
+    "Vegeta GOD": "Défenseur",
     "Bardock": "Défenseur",
     "Buu": "Soutien",
     "Krillin": "Soutien",
@@ -48,6 +49,7 @@ const normalizeHeroName = (name) => {
     if (n === "ultimate Gohan" || n === "Ultimate Gohan") return "Ultimate Gohan";
     if (n === "Broly" || n === "broly") return "Broly";
     if (n === "cell" || n === "Cell") return "Cell";
+    if (n.toLowerCase() === "vegeta god") return "Vegeta GOD";
     return n;
 };
 
