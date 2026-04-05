@@ -40,8 +40,7 @@ const MatchList: React.FC<MatchListProps> = ({ matches, onMatchDeleted }) => {
                         style={{ 
                             padding: '1.25rem',
                             background: match.result === 'Win' ? 'linear-gradient(90deg, rgba(0, 230, 118, 0.05), transparent)' : 'linear-gradient(90deg, rgba(255, 23, 68, 0.05), transparent)',
-                            borderLeft: match.result === 'Win' ? '4px solid var(--win-color)' : '4px solid var(--loss-color)',
-                            marginBottom: '1rem'
+                            borderLeft: match.result === 'Win' ? '4px solid var(--win-color)' : '4px solid var(--loss-color)'
                         }}
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>

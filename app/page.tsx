@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Match } from '../lib/types';
-import { fetchMatches } from '../lib/storage';
+import { fetchMatches, saveMatchesToDB } from '../lib/storage';
 import MatchForm from '../components/MatchForm';
 import MatchList from '../components/MatchList';
 import StatsSummary from '../components/StatsSummary';
@@ -15,11 +15,12 @@ export default function Home() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [seasonFilter, setSeasonFilter] = useState<'all' | 's1' | 's2'>('s2');
 
-  const SEASON_2_START = new Date('2026-03-18T00:00:00.000Z');
+  // Fix timezone: utiliser heure locale pour éviter les erreurs autour de minuit
+  const SEASON_2_START_LOCAL = new Date('2026-03-18T00:00:00');
   const getSeason = (dateStr: string) => {
       if (!dateStr || !dateStr.includes('-')) return 's1';
       const d = new Date(dateStr);
-      return d >= SEASON_2_START ? 's2' : 's1';
+      return d >= SEASON_2_START_LOCAL ? 's2' : 's1';
   };
 
   const loadData = async () => {
@@ -62,10 +63,7 @@ export default function Home() {
   const handleMatchDelete = async (id: string) => {
     const updated = matches.filter(m => m.id !== id);
     setMatches(updated);
-    // Since page.tsx imports fetchMatches, it needs saveMatchesToDB.
-    import('../lib/storage').then(({ saveMatchesToDB }) => {
-      saveMatchesToDB(updated);
-    });
+    saveMatchesToDB(updated);
   };
 
   const filteredMatches = matches.filter(m => {

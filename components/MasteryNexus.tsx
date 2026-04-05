@@ -125,7 +125,7 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
                     padding: '2rem'
                 }}>
                     <button onClick={onClose} style={{
-                        position: 'absolute', top: '1.5rem', right: '1.5rem',
+                        position: 'fixed', top: '1.5rem', right: '1.5rem',
                         background: 'transparent', border: 'none', color: 'var(--text-secondary)',
                         cursor: 'pointer', padding: '0.5rem'
                     }}>

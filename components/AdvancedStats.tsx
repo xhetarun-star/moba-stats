@@ -75,10 +75,10 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const xheloBase = processHeroStats((m, side) => side === 'user');
     const j9Base = processHeroStats((m, side) => side === 'mate');
 
-    const topXheloWR = [...xheloBase].sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
+    const topXheloWR = [...xheloBase].filter(h => h.total >= 2).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
     const topXheloKDA = [...xheloBase].filter(h => h.total >= 2).sort((a, b) => b.kda - a.kda).slice(0, 5);
 
-    const topJ9WR = [...j9Base].sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
+    const topJ9WR = [...j9Base].filter(h => h.total >= 2).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
     const topJ9KDA = [...j9Base].filter(h => h.total >= 2).sort((a, b) => b.kda - a.kda).slice(0, 5);
 
     const xheloRole = processRoleStats('user');
@@ -118,8 +118,11 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const maxKDA = Math.max(uKDA, mKDA) || 1;
     const duoWR = userTotalGames > 0 ? (matches.filter(m => m.result === 'Win').length / userTotalGames) * 100 : 0;
 
+    const uKillShare = (uK / Math.max(1, uK + mK)) * 100;
+    const mKillShare = (mK / Math.max(1, uK + mK)) * 100;
+
     const radarData = [
-        { subject: 'EFFICACITÉ', xhelo: duoWR, j9: duoWR, fullMark: 100 },
+        { subject: 'CONTRIBUTION', xhelo: uKillShare, j9: mKillShare, fullMark: 100 },
         { subject: 'AGRESSIVITÉ', xhelo: (uK / maxK) * 100, j9: (mK / maxK) * 100, fullMark: 100 },
         { subject: 'SOUTIEN', xhelo: (uA / maxA) * 100, j9: (mA / maxA) * 100, fullMark: 100 },
         { subject: 'SURVIE', xhelo: Math.max(0, 100 - ((avgUD / maxAvgD) * 100)), j9: Math.max(0, 100 - ((avgMD / maxAvgD) * 100)), fullMark: 100 },
