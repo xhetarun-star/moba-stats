@@ -124,17 +124,27 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
                     overflowY: 'auto',
                     padding: '2rem'
                 }}>
-                    <button onClick={onClose} style={{
-                        position: 'fixed', top: '1.5rem', right: '1.5rem',
-                        background: 'transparent', border: 'none', color: 'var(--text-secondary)',
-                        cursor: 'pointer', padding: '0.5rem'
-                    }}>
-                        <X size={28} />
-                    </button>
-
-                    <h2 className="font-syncopate" style={{ fontSize: '2rem', color: primaryColor, marginBottom: '2rem', textTransform: 'uppercase' }}>
-                        Dossier Tactique: {hero}
-                    </h2>
+                    {/* Header with close button */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
+                        <h2 className="font-syncopate" style={{ fontSize: '2rem', color: primaryColor, textTransform: 'uppercase', margin: 0 }}>
+                            Dossier Tactique: {hero}
+                        </h2>
+                        <button onClick={onClose} style={{
+                            background: 'rgba(255,255,255,0.05)',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            borderRadius: '10px',
+                            color: 'var(--text-secondary)',
+                            cursor: 'pointer',
+                            padding: '0.5rem',
+                            flexShrink: 0,
+                            marginLeft: '1rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <X size={24} />
+                        </button>
+                    </div>
 
                     {/* Power Grade Area */}
                     <div className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '2rem', borderTop: `2px solid ${data.gradeColor}`, marginBottom: '1.5rem' }}>
