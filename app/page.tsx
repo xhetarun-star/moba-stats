@@ -66,6 +66,34 @@ export default function Home() {
     saveMatchesToDB(updated);
   };
 
+  // Power Level dynamique
+  const computePowerLevel = (matchList: Match[], side: 'user' | 'mate') => {
+    const total = matchList.length;
+    if (total === 0) return 0;
+    const wins = matchList.filter(m => m.result === 'Win').length;
+    const wr = wins / total;
+    let k = 0, d = 0, a = 0;
+    matchList.forEach(m => {
+      const s = side === 'user' ? m.userStats : m.mateStats;
+      k += s.kills; d += s.deaths; a += s.assists;
+    });
+    const kda = (k + a) / Math.max(1, d);
+    return Math.round(wr * kda * total * 10);
+  };
+
+  const getPowerLabel = (power: number) => {
+    if (power === 0) return { label: 'En entraînement...', color: 'var(--text-secondary)' };
+    if (power < 500) return { label: 'Guerrier Z', color: '#4caf50' };
+    if (power < 1000) return { label: 'Super Saiyen', color: 'var(--dbz-blue)' };
+    if (power < 5000) return { label: 'Super Saiyen 2', color: 'var(--dbz-orange)' };
+    return { label: '⚡ OVER 9000 !!', color: 'var(--dbz-gold)' };
+  };
+
+  const xheloPower = computePowerLevel(matches, 'user');
+  const j9Power = computePowerLevel(matches, 'mate');
+  const xheloLabel = getPowerLabel(xheloPower);
+  const j9Label = getPowerLabel(j9Power);
+
   const filteredMatches = matches.filter(m => {
     if (seasonFilter === 'all') return true;
     return getSeason(m.date) === seasonFilter;
@@ -121,15 +149,24 @@ export default function Home() {
         </div>
 
         <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-          {/* Mock Combat Power Indicator */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: '1rem' }}>
-             <span className="font-orbitron" style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>POWER LEVEL</span>
-             <span className="font-orbitron" style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--dbz-gold)', textShadow: '0 0 15px var(--dbz-gold-glow)' }}>
-                 Over 9000
-             </span>
+          {/* Power Level dynamique Xhelo + j9 */}
+          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginRight: '1rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <span className="font-orbitron" style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>XHELO</span>
+              <span className="font-orbitron" style={{ fontSize: '1.3rem', fontWeight: 900, color: xheloLabel.color, textShadow: `0 0 15px ${xheloLabel.color}`, transition: 'all 0.5s' }}>
+                {xheloPower.toLocaleString()}
+              </span>
+              <span className="font-orbitron" style={{ fontSize: '0.55rem', color: xheloLabel.color, letterSpacing: '0.05em', opacity: 0.9 }}>{xheloLabel.label}</span>
+            </div>
+            <div style={{ width: '1px', height: '40px', background: 'var(--card-border)' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+              <span className="font-orbitron" style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>J9</span>
+              <span className="font-orbitron" style={{ fontSize: '1.3rem', fontWeight: 900, color: j9Label.color, textShadow: `0 0 15px ${j9Label.color}`, transition: 'all 0.5s' }}>
+                {j9Power.toLocaleString()}
+              </span>
+              <span className="font-orbitron" style={{ fontSize: '0.55rem', color: j9Label.color, letterSpacing: '0.05em', opacity: 0.9 }}>{j9Label.label}</span>
+            </div>
           </div>
-
-          <div style={{ width: '1px', height: '40px', background: 'var(--card-border)' }}></div>
 
           <select 
             value={seasonFilter} 
