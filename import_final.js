@@ -37,7 +37,8 @@ const HERO_ROLES = {
     "C-17": "Soutien",
     "Gotenks": "Soutien",
     "Hit": "Soutien",
-    "Ultimate Gohan": "Soutien"
+    "Ultimate Gohan": "Soutien",
+    "Buu Pur": "Soutien"
 };
 
 const normalizeHeroName = (name) => {

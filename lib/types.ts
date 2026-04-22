@@ -52,7 +52,8 @@ export const HERO_ROLES: Record<string, Role> = {
     "C-17": "Soutien",
     "Gotenks": "Soutien",
     "Hit": "Soutien",
-    "Ultimate Gohan": "Soutien"
+    "Ultimate Gohan": "Soutien",
+    "Buu Pur": "Soutien"
 };
 
 export const HEROES = Object.keys(HERO_ROLES).sort();
