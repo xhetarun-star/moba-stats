@@ -13,6 +13,7 @@ interface AdvancedStatsProps {
 
 const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const [strictDuo, setStrictDuo] = useState(false);
+    const [strictHero, setStrictHero] = useState(false);
     const [selectedNexus, setSelectedNexus] = useState<{hero: string, player: 'xhelo' | 'j9'} | null>(null);
 
     if (matches.length === 0) return null;
@@ -45,6 +46,7 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
             name,
             winrate: (s.wins / s.total) * 100,
             total: s.total,
+            wins: s.wins,
             kda: (s.k + s.a) / Math.max(1, s.d),
             details: { k: s.k, d: s.d, a: s.a }
         }));
@@ -75,15 +77,15 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const xheloBase = processHeroStats((m, side) => side === 'user');
     const j9Base = processHeroStats((m, side) => side === 'mate');
 
-    const topXheloWR = [...xheloBase].filter(h => h.total >= 2).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
-    const topXheloKDA = [...xheloBase].filter(h => h.total >= 2).sort((a, b) => b.kda - a.kda).slice(0, 5);
+    const topXheloWR = [...xheloBase].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
+    const topXheloKDA = [...xheloBase].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.kda - a.kda).slice(0, 5);
 
-    const topJ9WR = [...j9Base].filter(h => h.total >= 2).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
-    const topJ9KDA = [...j9Base].filter(h => h.total >= 2).sort((a, b) => b.kda - a.kda).slice(0, 5);
+    const topJ9WR = [...j9Base].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
+    const topJ9KDA = [...j9Base].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.kda - a.kda).slice(0, 5);
 
     const xheloRole = processRoleStats('user');
     const j9Role = processRoleStats('mate');
-    const topGlobal = processHeroStats().filter(h => h.total >= 3).sort((a, b) => b.winrate - a.winrate).slice(0, 5);
+    const topGlobal = processHeroStats().filter(h => !strictHero ? h.total >= 3 : h.wins >= 5).sort((a, b) => b.winrate - a.winrate).slice(0, 5);
 
     // Duos
     const duoGroup: Record<string, { wins: number; total: number }> = {};
@@ -95,8 +97,8 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     });
 
     const topDuos = Object.entries(duoGroup)
-        .map(([key, s]) => ({ key, winrate: (s.wins / s.total) * 100, total: s.total }))
-        .filter(d => !strictDuo || d.total >= 5)
+        .map(([key, s]) => ({ key, winrate: (s.wins / s.total) * 100, total: s.total, wins: s.wins }))
+        .filter(d => !strictDuo || d.wins >= 5)
         .sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
 
     // --- Radar Chart Calculation ---
@@ -217,10 +219,34 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
 
     return (
         <div style={{ marginBottom: '4rem' }}>
-            <h2 className="font-orbitron" style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--foreground)' }}>
-                <Activity color="var(--dbz-orange)" size={28} />
-                Système d'Analyse Avancé
-            </h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                <h2 className="font-orbitron" style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', margin: 0, display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--foreground)' }}>
+                    <Activity color="var(--dbz-orange)" size={28} />
+                    Système d'Analyse Avancé
+                </h2>
+                <button
+                    onClick={() => setStrictHero(!strictHero)}
+                    style={{
+                        background: strictHero ? 'var(--dbz-gold)' : 'rgba(255,255,255,0.05)',
+                        color: strictHero ? 'black' : 'var(--text-secondary)',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '0.4rem 0.8rem',
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        transition: 'all 0.2s',
+                        fontFamily: 'Orbitron',
+                        boxShadow: strictHero ? '0 0 15px rgba(255, 193, 7, 0.3)' : 'none'
+                    }}
+                >
+                    <Filter size={14} />
+                    Héros: 5+ Wins
+                </button>
+            </div>
             <div className="font-orbitron" style={{ fontSize: '0.7rem', color: 'var(--dbz-orange)', marginBottom: '2.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8 }}>
                 Données Quantiques & Synergies
             </div>
@@ -311,7 +337,7 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                                 }}
                             >
                                 <Filter size={12} />
-                                5+ Combats
+                                5+ Victoires
                             </button>
                         </div>
                         <StatList data={topDuos} type="duo" />
