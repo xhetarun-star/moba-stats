@@ -124,12 +124,59 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const mKillShare = (mK / Math.max(1, uK + mK)) * 100;
 
     const radarData = [
-        { subject: 'CONTRIBUTION', xhelo: uKillShare, j9: mKillShare, fullMark: 100 },
-        { subject: 'AGRESSIVITÉ', xhelo: (uK / maxK) * 100, j9: (mK / maxK) * 100, fullMark: 100 },
-        { subject: 'SOUTIEN', xhelo: (uA / maxA) * 100, j9: (mA / maxA) * 100, fullMark: 100 },
-        { subject: 'SURVIE', xhelo: Math.max(0, 100 - ((avgUD / maxAvgD) * 100)), j9: Math.max(0, 100 - ((avgMD / maxAvgD) * 100)), fullMark: 100 },
-        { subject: 'IMPACT', xhelo: (uKDA / maxKDA) * 100, j9: (mKDA / maxKDA) * 100, fullMark: 100 },
+        { subject: 'RÉPARTITION KI', xhelo: uKillShare, j9: mKillShare, fullMark: 100, desc: 'Part des éliminations au sein du duo' },
+        { subject: 'FORCE FRAPPE', xhelo: (uK / maxK) * 100, j9: (mK / maxK) * 100, fullMark: 100, desc: 'Volume brut d\'éliminations' },
+        { subject: 'SYNERGIE', xhelo: (uA / maxA) * 100, j9: (mA / maxA) * 100, fullMark: 100, desc: 'Capacité à assister le partenaire' },
+        { subject: 'RÉSILIENCE', xhelo: Math.max(0, 100 - ((avgUD / maxAvgD) * 100)), j9: Math.max(0, 100 - ((avgMD / maxAvgD) * 100)), fullMark: 100, desc: 'Capacité à rester en vie' },
+        { subject: 'POTENTIEL Z', xhelo: (uKDA / maxKDA) * 100, j9: (mKDA / maxKDA) * 100, fullMark: 100, desc: 'Efficacité globale (Ratio KDA)' },
     ];
+
+    const CustomRadarTooltip = ({ active, payload }: any) => {
+        if (active && payload && payload.length) {
+            const data = payload[0].payload;
+            return (
+                <div style={{ 
+                    background: 'rgba(10, 10, 15, 0.95)', 
+                    border: '1px solid var(--dbz-gold)', 
+                    padding: '1rem', 
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                    backdropFilter: 'blur(10px)',
+                    minWidth: '220px'
+                }}>
+                    <div style={{ color: 'var(--dbz-gold)', fontWeight: 800, fontSize: '0.8rem', marginBottom: '0.4rem', textTransform: 'uppercase', fontFamily: 'Orbitron' }}>
+                        {data.subject}
+                    </div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', marginBottom: '0.8rem', fontStyle: 'italic', lineHeight: 1.3 }}>
+                        {data.desc}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', borderTop: '1px solid rgba(255,215,0,0.1)', paddingTop: '0.6rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ color: 'var(--dbz-orange)', fontWeight: 700, fontSize: '0.75rem' }}>XHELO:</span>
+                            <span style={{ fontWeight: 800, fontSize: '0.85rem' }}>{data.xhelo.toFixed(1)}%</span>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ color: 'var(--dbz-blue)', fontWeight: 700, fontSize: '0.75rem' }}>J9:</span>
+                            <span style={{ fontWeight: 800, fontSize: '0.85rem' }}>{data.j9.toFixed(1)}%</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        return null;
+    };
+
+    const getSynergyVerdict = () => {
+        const xScore = radarData.reduce((acc, d) => acc + d.xhelo, 0);
+        const jScore = radarData.reduce((acc, d) => acc + d.j9, 0);
+        const diff = Math.abs(xScore - jScore);
+        
+        if (diff < 30) return { text: "OSMOSE TOTALE", sub: "Vos styles se complètent parfaitement", color: 'var(--dbz-gold)' };
+        if (xScore > jScore) return { text: "XHELO EN POINTE", sub: "j9 assure la couverture tactique", color: 'var(--dbz-orange)' };
+        return { text: "J9 EN PILIER", sub: "Xhelo multiplie les assauts", color: 'var(--dbz-blue)' };
+    };
+
+    const verdict = getSynergyVerdict();
 
     const getRoleIcon = (role: string) => {
         if (role.includes('Attaq')) return <Sword size={14} />;
@@ -299,20 +346,47 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                     <Target size={20} /> Synergie & Global
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-                    <div className="card" style={{ borderTop: '2px solid #ffd700' }}>
-                        <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', opacity: 0.8 }}>Analyse Vectorielle (Radar)</h4>
-                        <div style={{ width: '100%', height: 300, cursor: 'crosshair' }}>
+                    <div className="card" style={{ borderTop: '2px solid #ffd700', position: 'relative', overflow: 'hidden' }}>
+                        <div style={{ position: 'absolute', top: 0, right: 0, padding: '0.5rem 1rem', background: 'rgba(255,215,0,0.1)', borderBottomLeftRadius: '12px', fontSize: '0.6rem', fontWeight: 900, color: 'var(--dbz-gold)', letterSpacing: '0.1em' }}>SCOUTER MATRIX v4.0</div>
+                        
+                        <h4 className="font-orbitron" style={{ fontSize: '0.9rem', marginBottom: '1.5rem', opacity: 0.8, color: 'var(--dbz-gold)' }}>Analyse du Duo</h4>
+                        
+                        <div style={{ width: '100%', height: 280, position: 'relative' }}>
                             <ResponsiveContainer width="100%" height="100%">
-                                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                                    <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                                    <PolarAngleAxis dataKey="subject" tick={{ fill: 'var(--text-secondary)', fontSize: 10, fontFamily: 'Orbitron' }} />
+                                <RadarChart cx="50%" cy="50%" outerRadius="75%" data={radarData}>
+                                    <PolarGrid stroke="rgba(255,255,255,0.05)" />
+                                    <PolarAngleAxis 
+                                        dataKey="subject" 
+                                        tick={{ fill: 'var(--text-secondary)', fontSize: 9, fontFamily: 'Orbitron', fontWeight: 700 }}
+                                    />
                                     <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                                    <Tooltip contentStyle={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderRadius: '8px', color: 'white' }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: 'Orbitron' }} />
-                                    <Radar name="Xhelo" dataKey="xhelo" stroke="var(--dbz-orange)" fill="var(--dbz-orange)" fillOpacity={0.4} />
-                                    <Radar name="j9" dataKey="j9" stroke="var(--dbz-blue)" fill="var(--dbz-blue)" fillOpacity={0.4} />
+                                    <Tooltip content={<CustomRadarTooltip />} />
+                                    <Radar name="Xhelo" dataKey="xhelo" stroke="var(--dbz-orange)" fill="var(--dbz-orange)" fillOpacity={0.3} dot={{ r: 3, fill: 'var(--dbz-orange)' }} />
+                                    <Radar name="j9" dataKey="j9" stroke="var(--dbz-blue)" fill="var(--dbz-blue)" fillOpacity={0.3} dot={{ r: 3, fill: 'var(--dbz-blue)' }} />
+                                    <Legend 
+                                        verticalAlign="bottom" 
+                                        height={36} 
+                                        formatter={(value) => <span className="font-orbitron" style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{value.toUpperCase()}</span>}
+                                    />
                                 </RadarChart>
                             </ResponsiveContainer>
+                        </div>
+
+                        <div style={{ 
+                            marginTop: '1.5rem', 
+                            padding: '1rem', 
+                            background: 'rgba(255,255,255,0.03)', 
+                            borderRadius: '12px', 
+                            border: `1px solid ${verdict.color}33`,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                            gap: '0.2rem'
+                        }}>
+                            <div className="font-orbitron" style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>VERDICT DE SYNERGIE</div>
+                            <div className="font-orbitron" style={{ fontSize: '1rem', fontWeight: 900, color: verdict.color, textShadow: `0 0 10px ${verdict.color}66` }}>{verdict.text}</div>
+                            <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>{verdict.sub}</div>
                         </div>
                     </div>
                     
