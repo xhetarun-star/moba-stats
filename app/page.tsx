@@ -13,14 +13,18 @@ export default function Home() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [seasonFilter, setSeasonFilter] = useState<'all' | 's1' | 's2'>('s2');
+  const [seasonFilter, setSeasonFilter] = useState<'all' | 's1' | 's2' | 's3'>('s3');
 
   // Fix timezone: utiliser heure locale pour éviter les erreurs autour de minuit
   const SEASON_2_START_LOCAL = new Date('2026-03-18T00:00:00');
+  const SEASON_3_START_LOCAL = new Date('2026-05-10T00:00:00');
+
   const getSeason = (dateStr: string) => {
       if (!dateStr || !dateStr.includes('-')) return 's1';
       const d = new Date(dateStr);
-      return d >= SEASON_2_START_LOCAL ? 's2' : 's1';
+      if (d >= SEASON_3_START_LOCAL) return 's3';
+      if (d >= SEASON_2_START_LOCAL) return 's2';
+      return 's1';
   };
 
   const loadData = async () => {
@@ -143,7 +147,7 @@ export default function Home() {
               Z-STATS
             </h1>
             <p className="font-orbitron" style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: '0.3rem' }}>
-              NEXUS TRACKER v2.1
+              NEXUS TRACKER v3.0
             </p>
           </div>
         </div>
@@ -186,7 +190,8 @@ export default function Home() {
               transition: 'all 0.3s'
             }}
           >
-            <option value="s2">Saison 2 (Actuelle)</option>
+            <option value="s3">Saison 3 (Actuelle)</option>
+            <option value="s2">Saison 2 (Archive)</option>
             <option value="s1">Saison 1 (Archive)</option>
             <option value="all">Database Complète</option>
           </select>
