@@ -49,6 +49,7 @@ export const HERO_ROLES: Record<string, Role> = {
     "Krillin": "Soutien",
     "Son Gohan Petit": "Soutien",
     "Frieza 1": "Soutien",
+    "Frieza 4": "Soutien",
     "C-17": "Soutien",
     "Gotenks": "Soutien",
     "Hit": "Soutien",
