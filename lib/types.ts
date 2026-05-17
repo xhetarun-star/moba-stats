@@ -13,6 +13,7 @@ export interface Match {
     date: string;
     userStats: PlayerStats;
     mateStats: PlayerStats; // j9
+    neroStats?: PlayerStats; // nero (optional third player)
     result: 'Win' | 'Loss';
 }
 

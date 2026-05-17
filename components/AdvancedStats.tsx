@@ -14,11 +14,13 @@ interface AdvancedStatsProps {
 const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const [strictDuo, setStrictDuo] = useState(false);
     const [strictHero, setStrictHero] = useState(false);
-    const [selectedNexus, setSelectedNexus] = useState<{hero: string, player: 'xhelo' | 'j9'} | null>(null);
+    const [selectedNexus, setSelectedNexus] = useState<{hero: string, player: 'xhelo' | 'j9' | 'nero'} | null>(null);
 
     if (matches.length === 0) return null;
 
-    const processHeroStats = (filterFn: (m: Match, side: 'user' | 'mate') => boolean = () => true) => {
+    const hasNeroGames = matches.some(m => m.neroStats);
+
+    const processHeroStats = (filterFn: (m: Match, side: 'user' | 'mate' | 'nero') => boolean = () => true) => {
         const stats: Record<string, { wins: number; total: number; k: number; d: number; a: number }> = {};
 
         matches.forEach(m => {
@@ -40,6 +42,15 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                 stats[h].a += m.mateStats.assists;
                 if (m.result === 'Win') stats[h].wins++;
             }
+            if (m.neroStats && filterFn(m, 'nero')) {
+                const h = m.neroStats.hero;
+                if (!stats[h]) stats[h] = { wins: 0, total: 0, k: 0, d: 0, a: 0 };
+                stats[h].total++;
+                stats[h].k += m.neroStats.kills;
+                stats[h].d += m.neroStats.deaths;
+                stats[h].a += m.neroStats.assists;
+                if (m.result === 'Win') stats[h].wins++;
+            }
         });
 
         return Object.entries(stats).map(([name, s]) => ({
@@ -52,10 +63,11 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
         }));
     };
 
-    const processRoleStats = (side: 'user' | 'mate') => {
+    const processRoleStats = (side: 'user' | 'mate' | 'nero') => {
         const stats: Record<string, { wins: number; total: number; k: number; d: number; a: number }> = {};
         matches.forEach(m => {
-            const p = side === 'user' ? m.userStats : m.mateStats;
+            const p = side === 'user' ? m.userStats : (side === 'mate' ? m.mateStats : m.neroStats);
+            if (!p) return;
             const r = p.role;
             if (!stats[r]) stats[r] = { wins: 0, total: 0, k: 0, d: 0, a: 0 };
             stats[r].total++;
@@ -76,6 +88,7 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     // Data Preparation
     const xheloBase = processHeroStats((m, side) => side === 'user');
     const j9Base = processHeroStats((m, side) => side === 'mate');
+    const neroBase = hasNeroGames ? processHeroStats((m, side) => side === 'nero') : [];
 
     const topXheloWR = [...xheloBase].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
     const topXheloKDA = [...xheloBase].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.kda - a.kda).slice(0, 5);
@@ -83,14 +96,20 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const topJ9WR = [...j9Base].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
     const topJ9KDA = [...j9Base].filter(h => !strictHero ? h.total >= 2 : h.wins >= 5).sort((a, b) => b.kda - a.kda).slice(0, 5);
 
+    const topNeroWR = [...neroBase].filter(h => !strictHero ? h.total >= 1 : h.wins >= 2).sort((a, b) => b.winrate - a.winrate || b.total - a.total).slice(0, 5);
+    const topNeroKDA = [...neroBase].filter(h => !strictHero ? h.total >= 1 : h.wins >= 2).sort((a, b) => b.kda - a.kda).slice(0, 5);
+
     const xheloRole = processRoleStats('user');
     const j9Role = processRoleStats('mate');
+    const neroRole = hasNeroGames ? processRoleStats('nero') : [];
     const topGlobal = processHeroStats().filter(h => !strictHero ? h.total >= 3 : h.wins >= 5).sort((a, b) => b.winrate - a.winrate).slice(0, 5);
 
-    // Duos
+    // Duos/Trios Grouping
     const duoGroup: Record<string, { wins: number; total: number }> = {};
     matches.forEach(m => {
-        const key = [m.userStats.hero, m.mateStats.hero].sort().join(' + ');
+        const key = m.neroStats 
+            ? [m.userStats.hero, m.mateStats.hero, m.neroStats.hero].sort().join(' + ')
+            : [m.userStats.hero, m.mateStats.hero].sort().join(' + ');
         if (!duoGroup[key]) duoGroup[key] = { wins: 0, total: 0 };
         duoGroup[key].total++;
         if (m.result === 'Win') duoGroup[key].wins++;
@@ -104,31 +123,40 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     // --- Radar Chart Calculation ---
     let uK = 0, uD = 0, uA = 0;
     let mK = 0, mD = 0, mA = 0;
+    let nK = 0, nD = 0, nA = 0;
+    let neroTotalGames = 0;
     matches.forEach(m => {
         uK += m.userStats.kills; uD += m.userStats.deaths; uA += m.userStats.assists;
         mK += m.mateStats.kills; mD += m.mateStats.deaths; mA += m.mateStats.assists;
+        if (m.neroStats) {
+            nK += m.neroStats.kills; nD += m.neroStats.deaths; nA += m.neroStats.assists;
+            neroTotalGames++;
+        }
     });
 
     const userTotalGames = matches.length;
-    const maxK = Math.max(uK, mK) || 1;
-    const maxA = Math.max(uA, mA) || 1;
+    const maxK = Math.max(uK, mK, nK) || 1;
+    const maxA = Math.max(uA, mA, nA) || 1;
     const avgUD = userTotalGames ? uD / userTotalGames : 0;
     const avgMD = userTotalGames ? mD / userTotalGames : 0;
-    const maxAvgD = Math.max(avgUD, avgMD) || 1;
+    const avgND = neroTotalGames ? nD / neroTotalGames : 0;
+    const maxAvgD = Math.max(avgUD, avgMD, avgND) || 1;
     const uKDA = (uK + uA) / Math.max(1, uD);
     const mKDA = (mK + mA) / Math.max(1, mD);
-    const maxKDA = Math.max(uKDA, mKDA) || 1;
-    const duoWR = userTotalGames > 0 ? (matches.filter(m => m.result === 'Win').length / userTotalGames) * 100 : 0;
+    const nKDA = neroTotalGames ? (nK + nA) / Math.max(1, nD) : 0;
+    const maxKDA = Math.max(uKDA, mKDA, nKDA) || 1;
 
-    const uKillShare = (uK / Math.max(1, uK + mK)) * 100;
-    const mKillShare = (mK / Math.max(1, uK + mK)) * 100;
+    const totalKillsGroup = uK + mK + nK;
+    const uKillShare = totalKillsGroup ? (uK / totalKillsGroup) * 100 : 0;
+    const mKillShare = totalKillsGroup ? (mK / totalKillsGroup) * 100 : 0;
+    const nKillShare = totalKillsGroup ? (nK / totalKillsGroup) * 100 : 0;
 
     const radarData = [
-        { subject: 'RÉPARTITION KI', xhelo: uKillShare, j9: mKillShare, fullMark: 100, desc: 'Part des éliminations au sein du duo' },
-        { subject: 'FORCE FRAPPE', xhelo: (uK / maxK) * 100, j9: (mK / maxK) * 100, fullMark: 100, desc: 'Volume brut d\'éliminations' },
-        { subject: 'SYNERGIE', xhelo: (uA / maxA) * 100, j9: (mA / maxA) * 100, fullMark: 100, desc: 'Capacité à assister le partenaire' },
-        { subject: 'RÉSILIENCE', xhelo: Math.max(0, 100 - ((avgUD / maxAvgD) * 100)), j9: Math.max(0, 100 - ((avgMD / maxAvgD) * 100)), fullMark: 100, desc: 'Capacité à rester en vie' },
-        { subject: 'POTENTIEL Z', xhelo: (uKDA / maxKDA) * 100, j9: (mKDA / maxKDA) * 100, fullMark: 100, desc: 'Efficacité globale (Ratio KDA)' },
+        { subject: 'RÉPARTITION KI', xhelo: uKillShare, j9: mKillShare, nero: nKillShare, fullMark: 100, desc: 'Part des éliminations au sein de l\'équipe' },
+        { subject: 'FORCE FRAPPE', xhelo: (uK / maxK) * 100, j9: (mK / maxK) * 100, nero: hasNeroGames ? (nK / maxK) * 100 : 0, fullMark: 100, desc: 'Volume brut d\'éliminations' },
+        { subject: 'SYNERGIE', xhelo: (uA / maxA) * 100, j9: (mA / maxA) * 100, nero: hasNeroGames ? (nA / maxA) * 100 : 0, fullMark: 100, desc: 'Capacité à assister le partenaire' },
+        { subject: 'RÉSILIENCE', xhelo: Math.max(0, 100 - ((avgUD / maxAvgD) * 100)), j9: Math.max(0, 100 - ((avgMD / maxAvgD) * 100)), nero: hasNeroGames ? Math.max(0, 100 - ((avgND / maxAvgD) * 100)) : 100, fullMark: 100, desc: 'Capacité à rester en vie' },
+        { subject: 'POTENTIEL Z', xhelo: (uKDA / maxKDA) * 100, j9: (mKDA / maxKDA) * 100, nero: hasNeroGames ? (nKDA / maxKDA) * 100 : 0, fullMark: 100, desc: 'Efficacité globale (Ratio KDA)' },
     ];
 
     const CustomRadarTooltip = ({ active, payload }: any) => {
@@ -159,6 +187,12 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                             <span style={{ color: 'var(--dbz-blue)', fontWeight: 700, fontSize: '0.75rem' }}>J9:</span>
                             <span style={{ fontWeight: 800, fontSize: '0.85rem' }}>{data.j9.toFixed(1)}%</span>
                         </div>
+                        {hasNeroGames && (
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ color: 'var(--dbz-purple)', fontWeight: 700, fontSize: '0.75rem' }}>NERO:</span>
+                                <span style={{ fontWeight: 800, fontSize: '0.85rem' }}>{data.nero.toFixed(1)}%</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             );
@@ -169,8 +203,16 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
     const getSynergyVerdict = () => {
         const xScore = radarData.reduce((acc, d) => acc + d.xhelo, 0);
         const jScore = radarData.reduce((acc, d) => acc + d.j9, 0);
-        const diff = Math.abs(xScore - jScore);
+        const nScore = hasNeroGames ? radarData.reduce((acc, d) => acc + d.nero, 0) : 0;
         
+        if (hasNeroGames) {
+            const maxScore = Math.max(xScore, jScore, nScore);
+            if (maxScore === xScore) return { text: "TRIO - DOMINATION XHELO", sub: "Xhelo mène les assauts avec brio", color: 'var(--dbz-orange)' };
+            if (maxScore === jScore) return { text: "TRIO - DOMINATION J9", sub: "j9 est le pilier tactique incontournable", color: 'var(--dbz-blue)' };
+            return { text: "TRIO - REFLUX NERO", sub: "Nero déchaîne sa puissance mystique", color: 'var(--dbz-purple)' };
+        }
+
+        const diff = Math.abs(xScore - jScore);
         if (diff < 30) return { text: "OSMOSE TOTALE", sub: "Vos styles se complètent parfaitement", color: 'var(--dbz-gold)' };
         if (xScore > jScore) return { text: "XHELO EN POINTE", sub: "j9 assure la couverture tactique", color: 'var(--dbz-orange)' };
         return { text: "J9 EN PILIER", sub: "Xhelo multiplie les assauts", color: 'var(--dbz-blue)' };
@@ -184,7 +226,7 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
         return <Heart size={14} />;
     };
 
-    const StatList = ({ data, type, player }: { data: any[], type: 'wr' | 'kda' | 'duo' | 'role', player?: 'xhelo' | 'j9' }) => (
+    const StatList = ({ data, type, player }: { data: any[], type: 'wr' | 'kda' | 'duo' | 'role', player?: 'xhelo' | 'j9' | 'nero' }) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             {data.map((item, i) => (
                 <motion.div
@@ -340,6 +382,29 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                 </div>
             </div>
 
+            {/* Nero Section */}
+            {hasNeroGames && (
+                <div style={{ marginBottom: '2.5rem' }}>
+                    <h3 style={{ fontSize: '1.2rem', color: 'var(--dbz-purple)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <User size={20} style={{ color: 'var(--dbz-purple)' }} /> Invité (Nero)
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                        <div className="card" style={{ borderTop: '2px solid var(--dbz-purple)' }}>
+                            <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', opacity: 0.8 }}>Top Winrate (Héros)</h4>
+                            <StatList data={topNeroWR} type="wr" player="nero" />
+                        </div>
+                        <div className="card" style={{ borderTop: '2px solid var(--dbz-purple)' }}>
+                            <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', opacity: 0.8 }}>Top KDA (Héros)</h4>
+                            <StatList data={topNeroKDA} type="kda" player="nero" />
+                        </div>
+                        <div className="card" style={{ borderTop: '2px solid var(--text-secondary)' }}>
+                            <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', opacity: 0.8 }}>Performance par Rôle</h4>
+                            <StatList data={neroRole} type="role" player="nero" />
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Global & Synergie Section */}
             <div>
                 <h3 className="font-syncopate" style={{ fontSize: '1.2rem', color: '#ffd700', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -349,7 +414,9 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                     <div className="card" style={{ borderTop: '2px solid #ffd700', position: 'relative', overflow: 'hidden' }}>
                         <div style={{ position: 'absolute', top: 0, right: 0, padding: '0.5rem 1rem', background: 'rgba(255,215,0,0.1)', borderBottomLeftRadius: '12px', fontSize: '0.6rem', fontWeight: 900, color: 'var(--dbz-gold)', letterSpacing: '0.1em' }}>SCOUTER MATRIX v4.0</div>
                         
-                        <h4 className="font-orbitron" style={{ fontSize: '0.9rem', marginBottom: '1.5rem', opacity: 0.8, color: 'var(--dbz-gold)' }}>Analyse du Duo</h4>
+                        <h4 className="font-orbitron" style={{ fontSize: '0.9rem', marginBottom: '1.5rem', opacity: 0.8, color: 'var(--dbz-gold)' }}>
+                            {hasNeroGames ? "Analyse de l'Équipe" : "Analyse du Duo"}
+                        </h4>
                         
                         <div style={{ width: '100%', height: 280, position: 'relative' }}>
                             <ResponsiveContainer width="100%" height="100%">
@@ -363,6 +430,9 @@ const AdvancedStats: React.FC<AdvancedStatsProps> = ({ matches }) => {
                                     <Tooltip content={<CustomRadarTooltip />} />
                                     <Radar name="Xhelo" dataKey="xhelo" stroke="var(--dbz-orange)" fill="var(--dbz-orange)" fillOpacity={0.3} dot={{ r: 3, fill: 'var(--dbz-orange)' }} />
                                     <Radar name="j9" dataKey="j9" stroke="var(--dbz-blue)" fill="var(--dbz-blue)" fillOpacity={0.3} dot={{ r: 3, fill: 'var(--dbz-blue)' }} />
+                                    {hasNeroGames && (
+                                        <Radar name="Nero" dataKey="nero" stroke="var(--dbz-purple)" fill="var(--dbz-purple)" fillOpacity={0.2} dot={{ r: 3, fill: 'var(--dbz-purple)' }} />
+                                    )}
                                     <Legend 
                                         verticalAlign="bottom" 
                                         height={36} 

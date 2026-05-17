@@ -23,6 +23,13 @@ const MatchForm: React.FC<MatchFormProps> = ({ onMatchAdded, currentMatches }) =
     const [mateD, setMateD] = useState(0);
     const [mateA, setMateA] = useState(0);
 
+    const [hasNero, setHasNero] = useState(false);
+    const [neroHero, setNeroHero] = useState(HEROES[2] || HEROES[0]);
+    const [neroRole, setNeroRole] = useState<Role>(HERO_ROLES[HEROES[2] || HEROES[0]]);
+    const [neroK, setNeroK] = useState(0);
+    const [neroD, setNeroD] = useState(0);
+    const [neroA, setNeroA] = useState(0);
+
     const [result, setResult] = useState<'Win' | 'Loss'>('Win');
 
     const handleUserHeroChange = (hero: string) => {
@@ -35,6 +42,11 @@ const MatchForm: React.FC<MatchFormProps> = ({ onMatchAdded, currentMatches }) =
         setMateRole(HERO_ROLES[hero] || 'Attaquant');
     };
 
+    const handleNeroHeroChange = (hero: string) => {
+        setNeroHero(hero);
+        setNeroRole(HERO_ROLES[hero] || 'Attaquant');
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -43,6 +55,7 @@ const MatchForm: React.FC<MatchFormProps> = ({ onMatchAdded, currentMatches }) =
             date: new Date().toISOString(),
             userStats: { hero: userHero, role: userRole, kills: userK, deaths: userD, assists: userA },
             mateStats: { hero: mateHero, role: mateRole, kills: mateK, deaths: mateD, assists: mateA },
+            ...(hasNero ? { neroStats: { hero: neroHero, role: neroRole, kills: neroK, deaths: neroD, assists: neroA } } : {}),
             result
         };
 
@@ -55,6 +68,7 @@ const MatchForm: React.FC<MatchFormProps> = ({ onMatchAdded, currentMatches }) =
         // Reset scores
         setUserK(0); setUserD(0); setUserA(0);
         setMateK(0); setMateD(0); setMateA(0);
+        setNeroK(0); setNeroD(0); setNeroA(0);
     };
 
     return (
@@ -123,6 +137,71 @@ const MatchForm: React.FC<MatchFormProps> = ({ onMatchAdded, currentMatches }) =
                         </div>
                     </div>
                 </div >
+
+                {/* Option 3 joueurs : Nero */}
+                <div 
+                    style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.75rem', 
+                        marginBottom: '1.5rem', 
+                        padding: '1rem', 
+                        background: hasNero ? 'rgba(168, 85, 247, 0.08)' : 'rgba(255,255,255,0.03)', 
+                        borderRadius: '16px',
+                        border: hasNero ? '1px solid rgba(168, 85, 247, 0.3)' : '1px solid rgba(255,255,255,0.05)',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s'
+                    }} 
+                    onClick={() => setHasNero(!hasNero)}
+                >
+                    <input 
+                        type="checkbox" 
+                        checked={hasNero} 
+                        onChange={(e) => setHasNero(e.target.checked)} 
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ 
+                            width: '18px', 
+                            height: '18px', 
+                            cursor: 'pointer',
+                            accentColor: 'var(--dbz-purple)'
+                        }}
+                    />
+                    <span className="font-orbitron" style={{ fontSize: '0.85rem', fontWeight: 800, color: hasNero ? 'var(--dbz-purple)' : 'var(--text-secondary)', letterSpacing: '0.05em' }}>
+                        🎮 REJOINDRE AVEC NERO (TRIO)
+                    </span>
+                </div>
+
+                {hasNero && (
+                    <div className="animate-fade" style={{ padding: '1.5rem', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '16px', marginBottom: '1.5rem', background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.05), transparent)', boxShadow: '0 0 15px rgba(168, 85, 247, 0.05)' }}>
+                        <h3 className="font-orbitron" style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--dbz-purple)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Mate (Nero)</h3>
+                        <div className="input-group">
+                            <label>Héros</label>
+                            <select value={neroHero} onChange={(e) => handleNeroHeroChange(e.target.value)}>
+                                {HEROES.map(h => <option key={h} value={h}>{h}</option>)}
+                            </select>
+                        </div>
+                        <div className="input-group">
+                            <label>Rôle</label>
+                            <select value={neroRole} onChange={(e) => setNeroRole(e.target.value as Role)}>
+                                {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+                            </select>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
+                            <div className="input-group">
+                                <label>K</label>
+                                <input type="number" value={neroK} onChange={(e) => setNeroK(parseInt(e.target.value) || 0)} min="0" />
+                            </div>
+                            <div className="input-group">
+                                <label>D</label>
+                                <input type="number" value={neroD} onChange={(e) => setNeroD(parseInt(e.target.value) || 0)} min="0" />
+                            </div>
+                            <div className="input-group">
+                                <label>A</label>
+                                <input type="number" value={neroA} onChange={(e) => setNeroA(parseInt(e.target.value) || 0)} min="0" />
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <div className="input-group">
                     <label>Résultat</label>

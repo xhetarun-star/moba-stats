@@ -71,16 +71,29 @@ export default function Home() {
   };
 
   // Power Level dynamique
-  const computePowerLevel = (matchList: Match[], side: 'user' | 'mate') => {
-    const total = matchList.length;
-    if (total === 0) return 0;
-    const wins = matchList.filter(m => m.result === 'Win').length;
-    const wr = wins / total;
+  const computePowerLevel = (matchList: Match[], side: 'user' | 'mate' | 'nero') => {
     let k = 0, d = 0, a = 0;
+    let total = 0;
+    let wins = 0;
+
     matchList.forEach(m => {
-      const s = side === 'user' ? m.userStats : m.mateStats;
-      k += s.kills; d += s.deaths; a += s.assists;
+      if (side === 'user') {
+        k += m.userStats.kills; d += m.userStats.deaths; a += m.userStats.assists;
+        total++;
+        if (m.result === 'Win') wins++;
+      } else if (side === 'mate') {
+        k += m.mateStats.kills; d += m.mateStats.deaths; a += m.mateStats.assists;
+        total++;
+        if (m.result === 'Win') wins++;
+      } else if (side === 'nero' && m.neroStats) {
+        k += m.neroStats.kills; d += m.neroStats.deaths; a += m.neroStats.assists;
+        total++;
+        if (m.result === 'Win') wins++;
+      }
     });
+
+    if (total === 0) return 0;
+    const wr = wins / total;
     const kda = (k + a) / Math.max(1, d);
     return Math.round(wr * kda * total * 10);
   };
@@ -95,8 +108,11 @@ export default function Home() {
 
   const xheloPower = computePowerLevel(matches, 'user');
   const j9Power = computePowerLevel(matches, 'mate');
+  const neroPower = computePowerLevel(matches, 'nero');
   const xheloLabel = getPowerLabel(xheloPower);
   const j9Label = getPowerLabel(j9Power);
+  const neroLabel = getPowerLabel(neroPower);
+  const neroGamesCount = matches.filter(m => m.neroStats).length;
 
   const filteredMatches = matches.filter(m => {
     if (seasonFilter === 'all') return true;
@@ -153,7 +169,7 @@ export default function Home() {
         </div>
 
         <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-          {/* Power Level dynamique Xhelo + j9 */}
+          {/* Power Level dynamique Xhelo + j9 + Nero */}
           <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginRight: '1rem' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
               <span className="font-orbitron" style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>XHELO</span>
@@ -170,6 +186,18 @@ export default function Home() {
               </span>
               <span className="font-orbitron" style={{ fontSize: '0.55rem', color: j9Label.color, letterSpacing: '0.05em', opacity: 0.9 }}>{j9Label.label}</span>
             </div>
+            {neroGamesCount > 0 && (
+              <>
+                <div style={{ width: '1px', height: '40px', background: 'var(--card-border)' }} />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <span className="font-orbitron" style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>NERO</span>
+                  <span className="font-orbitron" style={{ fontSize: '1.3rem', fontWeight: 900, color: neroLabel.color, textShadow: `0 0 15px ${neroLabel.color}`, transition: 'all 0.5s' }}>
+                    {neroPower.toLocaleString()}
+                  </span>
+                  <span className="font-orbitron" style={{ fontSize: '0.55rem', color: neroLabel.color, letterSpacing: '0.05em', opacity: 0.9 }}>{neroLabel.label}</span>
+                </div>
+              </>
+            )}
           </div>
 
           <select 

@@ -15,13 +15,21 @@ const StatsSummary: React.FC<StatsSummaryProps> = ({ matches }) => {
 
     let tk = 0, td = 0, ta = 0;
     let mk = 0, md = 0, ma = 0;
+    let nk = 0, nd = 0, na = 0;
+    let neroGames = 0;
+
     matches.forEach(m => {
         tk += m.userStats.kills; td += m.userStats.deaths; ta += m.userStats.assists;
         mk += m.mateStats.kills; md += m.mateStats.deaths; ma += m.mateStats.assists;
+        if (m.neroStats) {
+            nk += m.neroStats.kills; nd += m.neroStats.deaths; na += m.neroStats.assists;
+            neroGames++;
+        }
     });
 
     const avgUserKDA = totalGames > 0 ? ((tk + ta) / Math.max(1, td)).toFixed(2) : "0.00";
     const avgMateKDA = totalGames > 0 ? ((mk + ma) / Math.max(1, md)).toFixed(2) : "0.00";
+    const avgNeroKDA = neroGames > 0 ? ((nk + na) / Math.max(1, nd)).toFixed(2) : "0.00";
 
     const winrateDegree = (winrate / 100) * 360;
 
@@ -85,6 +93,21 @@ const StatsSummary: React.FC<StatsSummaryProps> = ({ matches }) => {
                     </div>
                 </div>
             </div>
+
+            {/* Nero KDA Card (Dynamique) */}
+            {neroGames > 0 && (
+                <div className="card animate-fade" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.05), transparent)', animationDelay: '0.3s' }}>
+                    <div style={{ padding: '1rem', background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.2), transparent)', borderRadius: '16px', border: '1px solid rgba(168, 85, 247, 0.3)' }}>
+                        <Zap color="var(--dbz-purple)" size={32} />
+                    </div>
+                    <div>
+                        <div className="font-orbitron" style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>KDA / Nero</div>
+                        <div className="font-orbitron" style={{ fontSize: '2.5rem', fontWeight: 900, color: 'transparent', background: 'linear-gradient(to right, var(--dbz-purple), var(--dbz-purple-glow))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textShadow: '0 0 15px rgba(168, 85, 247, 0.4)' }}>
+                            {avgNeroKDA}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

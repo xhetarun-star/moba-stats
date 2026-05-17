@@ -10,6 +10,8 @@
   --dbz-gold: #ffc107; 
   --dbz-gold-glow: rgba(255, 193, 7, 0.4);
   --dbz-red: #ff1744;
+  --dbz-purple: #a855f7;
+  --dbz-purple-glow: rgba(168, 85, 247, 0.4);
   
   /* Modern Glassmorphic UI Tokens */
   --accent-primary: var(--dbz-orange);

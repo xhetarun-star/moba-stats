@@ -9,20 +9,24 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 interface MasteryNexusProps {
     matches: Match[];
     hero: string;
-    player: 'xhelo' | 'j9';
+    player: 'xhelo' | 'j9' | 'nero';
     onClose: () => void;
 }
 
 const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onClose }) => {
     const isXhelo = player === 'xhelo';
-    const primaryColor = isXhelo ? 'var(--dbz-orange)' : 'var(--dbz-blue)';
-    const primaryColorGlow = isXhelo ? 'rgba(255, 87, 34, 0.4)' : 'rgba(0, 229, 255, 0.4)';
+    const isJ9 = player === 'j9';
+    const isNero = player === 'nero';
+    const primaryColor = isXhelo ? 'var(--dbz-orange)' : (isJ9 ? 'var(--dbz-blue)' : 'var(--dbz-purple)');
+    const primaryColorGlow = isXhelo ? 'rgba(255, 87, 34, 0.4)' : (isJ9 ? 'rgba(0, 229, 255, 0.4)' : 'rgba(168, 85, 247, 0.4)');
 
     const data = useMemo(() => {
         // 1. Filter matches
-        const heroMatches = matches.filter(m => 
-            isXhelo ? m.userStats.hero === hero : m.mateStats.hero === hero
-        ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        const heroMatches = matches.filter(m => {
+            if (isXhelo) return m.userStats.hero === hero;
+            if (isJ9) return m.mateStats.hero === hero;
+            return !!m.neroStats && m.neroStats.hero === hero;
+        }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
         const total = heroMatches.length;
         const wins = heroMatches.filter(m => m.result === 'Win').length;
@@ -30,7 +34,8 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
 
         let k = 0, d = 0, a = 0;
         heroMatches.forEach(m => {
-            const stats = isXhelo ? m.userStats : m.mateStats;
+            const stats = isXhelo ? m.userStats : (isJ9 ? m.mateStats : m.neroStats);
+            if (!stats) return;
             k += stats.kills; d += stats.deaths; a += stats.assists;
         });
         const kda = (k + a) / Math.max(1, d);
@@ -49,7 +54,8 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
         // Heartbeat data (Last 15)
         const recentMatches = heroMatches.slice(-15);
         const heartbeat = recentMatches.map((m, i) => {
-            const stats = isXhelo ? m.userStats : m.mateStats;
+            const stats = isXhelo ? m.userStats : (isJ9 ? m.mateStats : m.neroStats);
+            if (!stats) return { name: `Game ${i + 1}`, impact: "0.00", result: m.result };
             return {
                 name: `Game ${i + 1}`,
                 impact: ((stats.kills + stats.assists) / Math.max(1, stats.deaths)).toFixed(2),
@@ -60,27 +66,45 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
         // Synergy Matrix
         const synergyMap: Record<string, { wins: number, total: number }> = {};
         heroMatches.forEach(m => {
-            const mateHero = isXhelo ? m.mateStats.hero : m.userStats.hero;
-            if (!synergyMap[mateHero]) synergyMap[mateHero] = { wins: 0, total: 0 };
-            synergyMap[mateHero].total += 1;
-            if (m.result === 'Win') synergyMap[mateHero].wins += 1;
+            const mates: string[] = [];
+            if (!isXhelo) mates.push(m.userStats.hero);
+            if (!isJ9) mates.push(m.mateStats.hero);
+            if (!isNero && m.neroStats) mates.push(m.neroStats.hero);
+
+            mates.forEach(mateHero => {
+                if (mateHero === hero) return; // Don't synergy with self if somehow playing mirror (not possible but safe)
+                if (!synergyMap[mateHero]) synergyMap[mateHero] = { wins: 0, total: 0 };
+                synergyMap[mateHero].total += 1;
+                if (m.result === 'Win') synergyMap[mateHero].wins += 1;
+            });
         });
 
         const topSynergies = Object.entries(synergyMap)
             .map(([h, s]) => ({ hero: h, winrate: (s.wins / s.total) * 100, total: s.total }))
             .sort((a, b) => b.winrate - a.winrate || b.total - a.total)
-            .filter(s => s.total >= 1); // Keep all conceptually, take top 3 in render
+            .filter(s => s.total >= 1);
 
         // Hologram comparison
-        const otherMatches = matches.filter(m => 
-            !isXhelo ? m.userStats.hero === hero : m.mateStats.hero === hero
-        );
+        const otherMatches = matches.filter(m => {
+            if (isXhelo) return m.mateStats.hero === hero || (!!m.neroStats && m.neroStats.hero === hero);
+            if (isJ9) return m.userStats.hero === hero || (!!m.neroStats && m.neroStats.hero === hero);
+            return m.userStats.hero === hero || m.mateStats.hero === hero;
+        });
+
         let comparison = null;
         if (otherMatches.length >= 1 && total >= 1) {
             let ok = 0, od = 0, oa = 0;
             otherMatches.forEach(m => {
-                const stats = !isXhelo ? m.userStats : m.mateStats;
-                ok += stats.kills; od += stats.deaths; oa += stats.assists;
+                const stats = [];
+                if (!isXhelo) stats.push(m.userStats);
+                if (!isJ9) stats.push(m.mateStats);
+                if (!isNero && m.neroStats) stats.push(m.neroStats);
+
+                stats.forEach(st => {
+                    if (st.hero === hero) {
+                        ok += st.kills; od += st.deaths; oa += st.assists;
+                    }
+                });
             });
             const otherKDA = (ok + oa) / Math.max(1, od);
             const otherWR = (otherMatches.filter(m => m.result === 'Win').length / otherMatches.length) * 100;
@@ -89,13 +113,13 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
             const wrDiff = (winrate - otherWR).toFixed(0);
             
             comparison = {
-                text: `${parseFloat(kdaDiff) >= 0 ? '+' : ''}${kdaDiff} KDA et ${parseInt(wrDiff) >= 0 ? '+' : ''}${wrDiff}% WR comparé à ${isXhelo ? 'j9' : 'Xhelo'} sur ce même héros.`,
+                text: `${parseFloat(kdaDiff) >= 0 ? '+' : ''}${kdaDiff} KDA et ${parseInt(wrDiff) >= 0 ? '+' : ''}${wrDiff}% WR comparé aux autres joueurs sur ce même héros.`,
                 isPositive: parseFloat(kdaDiff) >= 0 && parseInt(wrDiff) >= 0
             };
         }
 
         return { total, winrate, kda, grade, gradeColor, subTitle, heartbeat, topSynergies, comparison };
-    }, [matches, hero, isXhelo]);
+    }, [matches, hero, isXhelo, isJ9, isNero]);
 
     return (
         <AnimatePresence>
@@ -149,7 +173,7 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
                     {/* Power Grade Area */}
                     <div className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '2rem', borderTop: `2px solid ${data.gradeColor}`, marginBottom: '1.5rem' }}>
                         <div>
-                            <div style={{ fontSize: '0.9rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Perspective: {isXhelo ? 'Xhelo' : 'j9'}</div>
+                            <div style={{ fontSize: '0.9rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Perspective: {player === 'xhelo' ? 'Xhelo' : player === 'j9' ? 'j9' : 'Nero'}</div>
                             <div style={{ fontSize: '1.5rem', fontWeight: 600, display: 'flex', gap: '2rem', marginTop: '0.5rem' }}>
                                 <div><span style={{ color: 'var(--win-color)' }}>{data.winrate.toFixed(0)}%</span> WR</div>
                                 <div><span style={{ color: primaryColor }}>{data.kda.toFixed(2)}</span> KDA</div>
@@ -181,15 +205,15 @@ const MasteryNexus: React.FC<MasteryNexusProps> = ({ matches, hero, player, onCl
                     {/* Synergy Matrix */}
                     <div className="card" style={{ marginBottom: '1.5rem', padding: '1.5rem' }}>
                         <h3 className="font-syncopate" style={{ fontSize: '1rem', marginBottom: '1rem', color: 'var(--foreground)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <GitBranch size={20} color={primaryColor} /> Matrice Synergie Duo
+                            <GitBranch size={20} color={primaryColor} /> Matrice Synergie Composition
                         </h3>
                         <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                            Quand {isXhelo ? 'Xhelo' : 'j9'} prend {hero}, voici l'efficacité selon le pick de l'équipier :
+                            Quand {player === 'xhelo' ? 'Xhelo' : player === 'j9' ? 'j9' : 'Nero'} prend {hero}, voici l'efficacité selon le pick de ses équipiers :
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             {data.topSynergies.slice(0, 3).map((syn, i) => (
                                 <div key={syn.hero} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', borderLeft: i === 0 ? `3px solid ${primaryColor}` : '3px solid transparent' }}>
-                                    <div style={{ fontWeight: 600 }}>{syn.hero} <span style={{ fontSize: '0.75rem', fontWeight: 400, color: 'var(--text-secondary)' }}>joué par {isXhelo ? 'j9' : 'Xhelo'}</span></div>
+                                    <div style={{ fontWeight: 600 }}>{syn.hero} <span style={{ fontSize: '0.75rem', fontWeight: 400, color: 'var(--text-secondary)' }}>dans l'équipe</span></div>
                                     <div className="font-orbitron" style={{ color: syn.winrate >= 50 ? 'var(--win-color)' : 'var(--loss-color)', fontWeight: 800 }}>
                                         {syn.winrate.toFixed(0)}% <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>({syn.total}M)</span>
                                     </div>
