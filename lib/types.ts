@@ -19,6 +19,7 @@ export interface Match {
 
 export const HERO_ROLES: Record<string, Role> = {
     "Son Goku Super": "Attaquant",
+    "Goku Jeune": "Attaquant",
     "Goku GOD": "Attaquant",
     "Piccolo": "Attaquant",
     "Dabra": "Attaquant",
