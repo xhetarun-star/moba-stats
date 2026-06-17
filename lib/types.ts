@@ -39,6 +39,7 @@ export const HERO_ROLES: Record<string, Role> = {
     "Jiren": "Attaquant",
     "Kefla": "Attaquant",
     "Vegeta Sayen": "Défenseur",
+    "Bulma": "Défenseur",
     "Zamasu": "Défenseur",
     "Baby Juvénile": "Défenseur",
     "Caulifla Sayen 2": "Défenseur",
