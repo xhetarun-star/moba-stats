@@ -25,6 +25,7 @@ export const HERO_ROLES: Record<string, Role> = {
     "Dabra": "Attaquant",
     "Kale": "Attaquant",
     "Son Goku Mini": "Attaquant",
+    "Beerus": "Attaquant",
     "Bojack": "Attaquant",
     "Gamma 1 et 2": "Attaquant",
     "C-18": "Attaquant",

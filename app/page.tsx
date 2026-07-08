@@ -13,15 +13,17 @@ export default function Home() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [seasonFilter, setSeasonFilter] = useState<'all' | 's1' | 's2' | 's3'>('s3');
+  const [seasonFilter, setSeasonFilter] = useState<'all' | 's1' | 's2' | 's3' | 's4'>('s4');
 
   // Fix timezone: utiliser heure locale pour éviter les erreurs autour de minuit
   const SEASON_2_START_LOCAL = new Date('2026-03-18T00:00:00');
   const SEASON_3_START_LOCAL = new Date('2026-05-10T00:00:00');
+  const SEASON_4_START_LOCAL = new Date('2026-07-01T00:00:00');
 
   const getSeason = (dateStr: string) => {
       if (!dateStr || !dateStr.includes('-')) return 's1';
       const d = new Date(dateStr);
+      if (d >= SEASON_4_START_LOCAL) return 's4';
       if (d >= SEASON_3_START_LOCAL) return 's3';
       if (d >= SEASON_2_START_LOCAL) return 's2';
       return 's1';
@@ -218,7 +220,8 @@ export default function Home() {
               transition: 'all 0.3s'
             }}
           >
-            <option value="s3">Saison 3 (Actuelle)</option>
+            <option value="s4">Saison 4 (Actuelle)</option>
+            <option value="s3">Saison 3 (Archive)</option>
             <option value="s2">Saison 2 (Archive)</option>
             <option value="s1">Saison 1 (Archive)</option>
             <option value="all">Database Complète</option>
