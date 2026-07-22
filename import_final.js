@@ -39,7 +39,8 @@ const HERO_ROLES = {
     "Gotenks": "Soutien",
     "Hit": "Soutien",
     "Ultimate Gohan": "Soutien",
-    "Buu Pur": "Soutien"
+    "Buu Pur": "Soutien",
+    "Goku Black": "Soutien"
 };
 
 const normalizeHeroName = (name) => {
