@@ -250,7 +250,7 @@ export default function Home() {
       <StatsSummary matches={filteredMatches} />
 
       {/* Advanced Insights */}
-      <AdvancedStats matches={filteredMatches} />
+      <AdvancedStats matches={filteredMatches} seasonFilter={seasonFilter} />
 
       {/* Main Grid */}
       <div className="main-content">
