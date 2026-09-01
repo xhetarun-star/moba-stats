@@ -79,6 +79,8 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
     const [onlyPlayed, setOnlyPlayed] = useState(true);
     const [chartMetric, setChartMetric] = useState<'winrate' | 'kda' | 'games'>('winrate');
     const [sortKey, setSortKey] = useState<'total' | 'name' | 'xhelo' | 'j9' | 'nero' | 'gap'>('total');
+    const [playerMetric, setPlayerMetric] = useState<'mastery' | 'winrate' | 'kda'>('mastery');
+    const [hideSmallSamples, setHideSmallSamples] = useState(false);
     const [nexus, setNexus] = useState<{ hero: string; player: Side } | null>(null);
 
     const scoped = useMemo(
@@ -125,26 +127,42 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
         return map;
     }, [rows]);
 
+    // Le joueur sur lequel porte le classement (et donc le filtre de volume)
+    const sortSide: Side | null =
+        sortKey === 'xhelo' || sortKey === 'j9' || sortKey === 'nero' ? (sortKey as Side) : null;
+
     const visibleRows = useMemo(() => {
         const q = search.trim().toLowerCase();
         const filtered = rows.filter(r => {
             if (onlyPlayed && r.total === 0) return false;
             if (roleFilter !== 'all' && r.role !== roleFilter) return false;
             if (q && !r.hero.toLowerCase().includes(q)) return false;
+            // Echantillons trop faibles : sur le joueur classe, sinon sur le total
+            if (hideSmallSamples) {
+                const reference = sortSide ? r.lines[sortSide].games : r.total;
+                if (reference < 10) return false;
+            }
             return true;
         });
+
+        const metric = (line: HeroLine) =>
+            playerMetric === 'mastery' ? line.mastery : playerMetric === 'winrate' ? line.winrate : line.kda;
+        // Meme departage que le dashboard : a egalite, le plus gros volume passe devant
+        const bySide = (side: Side) => (a: HeroRow, b: HeroRow) =>
+            metric(b.lines[side]) - metric(a.lines[side]) || b.lines[side].games - a.lines[side].games;
+
         const sorters: Record<string, (a: HeroRow, b: HeroRow) => number> = {
             total: (a, b) => b.total - a.total || a.hero.localeCompare(b.hero, 'fr'),
             name: (a, b) => a.hero.localeCompare(b.hero, 'fr'),
-            xhelo: (a, b) => b.lines.xhelo.mastery - a.lines.xhelo.mastery,
-            j9: (a, b) => b.lines.j9.mastery - a.lines.j9.mastery,
-            nero: (a, b) => b.lines.nero.mastery - a.lines.nero.mastery,
+            xhelo: bySide('xhelo'),
+            j9: bySide('j9'),
+            nero: bySide('nero'),
             gap: (a, b) =>
-                Math.abs(b.lines.xhelo.mastery - b.lines.j9.mastery) -
-                Math.abs(a.lines.xhelo.mastery - a.lines.j9.mastery)
+                Math.abs(metric(b.lines.xhelo) - metric(b.lines.j9)) -
+                Math.abs(metric(a.lines.xhelo) - metric(a.lines.j9))
         };
         return [...filtered].sort(sorters[sortKey]);
-    }, [rows, search, roleFilter, onlyPlayed, sortKey]);
+    }, [rows, search, roleFilter, onlyPlayed, sortKey, sortSide, playerMetric, hideSmallSamples]);
 
     const toggleHero = (hero: string) =>
         setSelected(prev => (prev.includes(hero) ? prev.filter(h => h !== hero) : [...prev, hero]));
@@ -607,11 +625,35 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                         Base complète · {visibleRows.length} personnages
                     </h3>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <select
+                            value={playerMetric}
+                            onChange={e => setPlayerMetric(e.target.value as 'mastery' | 'winrate' | 'kda')}
+                            className="font-orbitron"
+                            style={{
+                                background: 'rgba(0,0,0,0.4)', color: 'var(--dbz-blue)', border: '1px solid rgba(0,229,255,0.3)',
+                                padding: '0.45rem 0.7rem', borderRadius: '10px', fontWeight: 800, textTransform: 'uppercase',
+                                outline: 'none', cursor: 'pointer', fontSize: '0.7rem'
+                            }}
+                            title="Critère utilisé pour les classements par joueur"
+                        >
+                            <option value="mastery">Critère : Maîtrise</option>
+                            <option value="winrate">Critère : Winrate</option>
+                            <option value="kda">Critère : KDA</option>
+                        </select>
+                        <button
+                            style={controlBtn(hideSmallSamples)}
+                            onClick={() => setHideSmallSamples(!hideSmallSamples)}
+                            title={sortSide
+                                ? `Masquer les personnages avec moins de 10 combats pour ${SIDE_LABEL[sortSide]}`
+                                : 'Masquer les personnages avec moins de 10 combats au total'}
+                        >
+                            <Filter size={13} /> ≥ 10 combats{sortSide ? ` (${SIDE_LABEL[sortSide]})` : ''}
+                        </button>
                         <button style={controlBtn(sortKey === 'total')} onClick={() => setSortKey('total')}>Plus joués</button>
                         <button style={controlBtn(sortKey === 'name')} onClick={() => setSortKey('name')}>A→Z</button>
-                        <button style={controlBtn(sortKey === 'xhelo')} onClick={() => setSortKey('xhelo')}>Maîtrise Xhelo</button>
-                        <button style={controlBtn(sortKey === 'j9')} onClick={() => setSortKey('j9')}>Maîtrise j9</button>
-                        {hasNero && <button style={controlBtn(sortKey === 'nero')} onClick={() => setSortKey('nero')}>Maîtrise Nero</button>}
+                        <button style={controlBtn(sortKey === 'xhelo')} onClick={() => setSortKey('xhelo')}>Xhelo</button>
+                        <button style={controlBtn(sortKey === 'j9')} onClick={() => setSortKey('j9')}>j9</button>
+                        {hasNero && <button style={controlBtn(sortKey === 'nero')} onClick={() => setSortKey('nero')}>Nero</button>}
                         <button style={controlBtn(sortKey === 'gap')} onClick={() => setSortKey('gap')}>Plus gros écart</button>
                     </div>
                 </div>
@@ -671,6 +713,7 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                 </div>
                 <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '1rem', fontStyle: 'italic' }}>
                     Clique sur une ligne pour ajouter ou retirer le personnage de la comparaison. Score de maîtrise = 60% winrate + 40% KDA (plafonné à 4.0), pondéré par le volume de combats.
+                    Pour retrouver exactement le classement « Top Winrate » du dashboard : critère <strong>Winrate</strong> + filtre <strong>≥ 10 combats</strong> + classement sur le joueur voulu.
                 </p>
             </div>
 
