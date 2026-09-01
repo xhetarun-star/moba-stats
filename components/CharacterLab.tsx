@@ -62,7 +62,7 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({ active, payload, label, sid
                     <span style={{ color: 'var(--text-secondary)' }}>
                         {d[`${side}_games`] === 0
                             ? 'jamais joué'
-                            : `${pct(d[`${side}_wr`])} WR · ${d[`${side}_kda`].toFixed(2)} KDA · ${d[`${side}_games`]}G`}
+                            : `${pct(d[`${side}_wr`])} de victoires · ${d[`${side}_kda`].toFixed(2)} KDA · ${d[`${side}_games`]} combats`}
                     </span>
                 </div>
             ))}
@@ -227,7 +227,10 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
     const SideCell = ({ line, side, best }: { line: HeroLine; side: Side; best: boolean }) => {
         if (line.games === 0) return <span style={{ color: 'var(--text-secondary)', opacity: 0.5, fontSize: '0.75rem' }}>—</span>;
         return (
-            <div style={{ lineHeight: 1.25 }}>
+            <div
+                style={{ lineHeight: 1.25 }}
+                title={`${line.wins} victoires sur ${line.games} combats (${pct(line.winrate)}) · KDA ${line.kda.toFixed(2)}`}
+            >
                 <span className="font-orbitron" style={{
                     fontWeight: 900, fontSize: '0.9rem',
                     color: best ? SIDE_COLOR[side] : 'var(--foreground)',
@@ -236,7 +239,7 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                     {pct(line.winrate)}
                 </span>
                 <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)' }}>
-                    {line.kda.toFixed(2)} KDA · {line.games}G
+                    {line.kda.toFixed(2)} KDA · {line.games} combats
                 </div>
             </div>
         );
@@ -514,7 +517,7 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                                                                 {pct(line.winrate)}
                                                             </span>
                                                             <span style={{ fontSize: '0.78rem' }}>{line.kda.toFixed(2)} KDA</span>
-                                                            <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{line.games}G</span>
+                                                            <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{line.games} combats</span>
                                                         </span>
                                                     )}
                                                 </div>
@@ -524,11 +527,11 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                                                             <div style={{ width: `${Math.min(100, line.mastery)}%`, height: '100%', background: SIDE_HEX[side] }} />
                                                         </div>
                                                         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem', marginTop: '0.4rem', fontSize: '0.65rem', color: 'var(--text-secondary)' }}>
-                                                            <span>Maîtrise {line.mastery.toFixed(0)}/100</span>
+                                                            <span title="60% winrate + 40% KDA, pondéré par le nombre de combats">Maîtrise {line.mastery.toFixed(0)}/100</span>
                                                             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                                                                 <Calendar size={11} />
                                                                 {bestSeason
-                                                                    ? `Meilleure : ${SEASON_SHORT[bestSeason]} (${pct(seasons[bestSeason].winrate)} · ${seasons[bestSeason].games}G)`
+                                                                    ? `Meilleure : ${SEASON_SHORT[bestSeason]} (${pct(seasons[bestSeason].winrate)} sur ${seasons[bestSeason].games} combats)`
                                                                     : '—'}
                                                             </span>
                                                         </div>
@@ -547,6 +550,9 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                                                     {activeSides.map(s => (
                                                         <th key={s} style={{ textAlign: 'right', padding: '0.3rem 0.4rem', color: SIDE_COLOR[s], fontWeight: 800 }}>
                                                             {SIDE_LABEL[s]}
+                                                            <div style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '0.6rem', letterSpacing: '0.02em' }}>
+                                                                victoires · KDA · combats
+                                                            </div>
                                                         </th>
                                                     ))}
                                                 </tr>
@@ -558,8 +564,16 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                                                         {activeSides.map(side => {
                                                             const l = bySeason[side][s];
                                                             return (
-                                                                <td key={side} style={{ padding: '0.35rem 0.4rem', textAlign: 'right', color: l.games === 0 ? 'var(--text-secondary)' : 'var(--foreground)' }}>
-                                                                    {l.games === 0 ? '—' : `${pct(l.winrate)} · ${l.kda.toFixed(1)} · ${l.games}G`}
+                                                                <td
+                                                                    key={side}
+                                                                    style={{ padding: '0.35rem 0.4rem', textAlign: 'right', color: l.games === 0 ? 'var(--text-secondary)' : 'var(--foreground)' }}
+                                                                    title={l.games === 0
+                                                                        ? 'Jamais joué sur cette saison'
+                                                                        : `${l.wins} victoires sur ${l.games} combats (${pct(l.winrate)}) · KDA ${l.kda.toFixed(2)}`}
+                                                                >
+                                                                    {l.games === 0
+                                                                        ? '—'
+                                                                        : `${pct(l.winrate)} · ${l.kda.toFixed(1)} KDA · ${l.games} combat${l.games > 1 ? 's' : ''}`}
                                                                 </td>
                                                             );
                                                         })}
@@ -610,7 +624,12 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                                 <th style={{ textAlign: 'left', padding: '0.6rem 0.5rem' }}>Rôle</th>
                                 <th style={{ textAlign: 'right', padding: '0.6rem 0.5rem' }}>Combats</th>
                                 {activeSides.map(s => (
-                                    <th key={s} style={{ textAlign: 'right', padding: '0.6rem 0.5rem', color: SIDE_COLOR[s] }}>{SIDE_LABEL[s]}</th>
+                                    <th key={s} style={{ textAlign: 'right', padding: '0.6rem 0.5rem', color: SIDE_COLOR[s] }}>
+                                        {SIDE_LABEL[s]}
+                                        <div style={{ color: 'var(--text-secondary)', fontSize: '0.6rem', letterSpacing: 'normal', textTransform: 'none', fontWeight: 600 }}>
+                                            victoires · KDA · combats
+                                        </div>
+                                    </th>
                                 ))}
                                 <th style={{ textAlign: 'right', padding: '0.6rem 0.5rem' }}>Maître</th>
                             </tr>
