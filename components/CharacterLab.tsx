@@ -137,6 +137,8 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
             if (onlyPlayed && r.total === 0) return false;
             if (roleFilter !== 'all' && r.role !== roleFilter) return false;
             if (q && !r.hero.toLowerCase().includes(q)) return false;
+            // Classement par joueur : on ne garde que les persos qu'il a reellement joues
+            if (sortSide && r.lines[sortSide].games === 0) return false;
             // Echantillons trop faibles : sur le joueur classe, sinon sur le total
             if (hideSmallSamples) {
                 const reference = sortSide ? r.lines[sortSide].games : r.total;
@@ -622,7 +624,9 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.8rem', marginBottom: '1.25rem' }}>
                     <h3 className="font-orbitron" style={{ fontSize: '1rem', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                         <Users size={20} color="var(--dbz-orange)" />
-                        Base complète · {visibleRows.length} personnages
+                        {sortSide
+                            ? `Classement ${SIDE_LABEL[sortSide]} · ${visibleRows.length} personnages`
+                            : `Base complète · ${visibleRows.length} personnages`}
                     </h3>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                         <select
@@ -662,9 +666,17 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                     <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '720px' }}>
                         <thead>
                             <tr style={{ color: 'var(--text-secondary)', fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                                <th style={{ textAlign: 'right', padding: '0.6rem 0.5rem', width: '2.5rem' }}>#</th>
                                 <th style={{ textAlign: 'left', padding: '0.6rem 0.5rem' }}>Personnage</th>
                                 <th style={{ textAlign: 'left', padding: '0.6rem 0.5rem' }}>Rôle</th>
-                                <th style={{ textAlign: 'right', padding: '0.6rem 0.5rem' }}>Combats</th>
+                                <th style={{ textAlign: 'right', padding: '0.6rem 0.5rem' }}>
+                                    Combats
+                                    {sortSide && (
+                                        <div style={{ color: SIDE_COLOR[sortSide], fontSize: '0.6rem', letterSpacing: 'normal', fontWeight: 700 }}>
+                                            {SIDE_LABEL[sortSide]} seul
+                                        </div>
+                                    )}
+                                </th>
                                 {activeSides.map(s => (
                                     <th key={s} style={{ textAlign: 'right', padding: '0.6rem 0.5rem', color: SIDE_COLOR[s] }}>
                                         {SIDE_LABEL[s]}
@@ -677,8 +689,9 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {visibleRows.map(row => {
+                            {visibleRows.map((row, index) => {
                                 const isSel = selected.includes(row.hero);
+                                const isPodium = sortKey !== 'name' && index < 3;
                                 return (
                                     <tr
                                         key={row.hero}
@@ -689,6 +702,15 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                                             cursor: 'pointer'
                                         }}
                                     >
+                                        <td
+                                            className="font-orbitron"
+                                            style={{
+                                                padding: '0.65rem 0.5rem', textAlign: 'right', fontSize: '0.8rem', fontWeight: 800,
+                                                color: isPodium ? 'var(--dbz-gold)' : 'var(--text-secondary)'
+                                            }}
+                                        >
+                                            {index + 1}
+                                        </td>
                                         <td style={{ padding: '0.65rem 0.5rem', fontWeight: 700, fontSize: '0.85rem' }}>
                                             {isSel && <span style={{ color: 'var(--dbz-gold)', marginRight: '0.4rem' }}>✦</span>}
                                             {row.hero}
@@ -696,7 +718,15 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                                         <td style={{ padding: '0.65rem 0.5rem' }}>
                                             <span className={ROLE_BADGE(row.role)}>{row.role}</span>
                                         </td>
-                                        <td className="font-orbitron" style={{ padding: '0.65rem 0.5rem', textAlign: 'right', fontSize: '0.85rem' }}>{row.total}</td>
+                                        <td
+                                            className="font-orbitron"
+                                            style={{ padding: '0.65rem 0.5rem', textAlign: 'right', fontSize: '0.85rem' }}
+                                            title={sortSide
+                                                ? `${row.lines[sortSide].games} combats de ${SIDE_LABEL[sortSide]} sur ce personnage (${row.total} tous joueurs confondus)`
+                                                : `${row.total} combats, tous joueurs confondus`}
+                                        >
+                                            {sortSide ? row.lines[sortSide].games : row.total}
+                                        </td>
                                         {activeSides.map(s => (
                                             <td key={s} style={{ padding: '0.65rem 0.5rem', textAlign: 'right' }}>
                                                 <SideCell line={row.lines[s]} side={s} best={row.master === s} />
@@ -713,7 +743,8 @@ const CharacterLab: React.FC<Props> = ({ matches }) => {
                 </div>
                 <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '1rem', fontStyle: 'italic' }}>
                     Clique sur une ligne pour ajouter ou retirer le personnage de la comparaison. Score de maîtrise = 60% winrate + 40% KDA (plafonné à 4.0), pondéré par le volume de combats.
-                    Pour retrouver exactement le classement « Top Winrate » du dashboard : critère <strong>Winrate</strong> + filtre <strong>≥ 10 combats</strong> + classement sur le joueur voulu.
+                    Pour retrouver exactement le classement « Top Winrate » du dashboard, et voir ce qu’il y a au-delà du top 5 : critère <strong>Winrate</strong> + filtre <strong>≥ 10 combats</strong> + classement sur le joueur voulu.
+                    En classement par joueur, la colonne Combats et les rangs ne comptent que ce joueur.
                 </p>
             </div>
 
