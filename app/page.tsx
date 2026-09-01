@@ -7,7 +7,8 @@ import MatchForm from '../components/MatchForm';
 import MatchList from '../components/MatchList';
 import StatsSummary from '../components/StatsSummary';
 import AdvancedStats from '../components/AdvancedStats';
-import { Sword, LayoutDashboard, RefreshCcw, Zap, Activity } from 'lucide-react';
+import Link from 'next/link';
+import { Sword, LayoutDashboard, RefreshCcw, Zap, Activity, Users } from 'lucide-react';
 
 export default function Home() {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -226,6 +227,21 @@ export default function Home() {
             <option value="s1">Saison 1 (Archive)</option>
             <option value="all">Database Complète</option>
           </select>
+
+          <Link
+            href="/codex"
+            className="btn"
+            style={{
+              background: 'rgba(255, 193, 7, 0.12)',
+              border: '1px solid rgba(255, 193, 7, 0.45)',
+              color: 'var(--dbz-gold)',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap'
+            }}
+            title="Stats détaillées de tous les personnages"
+          >
+            <Users size={16} /> Codex
+          </Link>
 
           <button
             onClick={loadData}
